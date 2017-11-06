@@ -2,16 +2,28 @@
 <template>
 
 <div>
-  <!-- swiper 
+  <!-- swiper
   <swiper :options="swiperOption">
     <swiper-slide><img src="http://pic3.readfollow.com/aHR0cDovL21tYml6LnFwaWMuY24vbW1iaXpfanBnL3hnRGlhUm5RTm92RWxVanoyaWFlN0xzME1aRlNUTzdGOTBIYmViM01pYVI0RVhVZHJ2VDRueE54b3AzS0ppY2pYc1dKcUpEdjlYQmF1OHZsMHRhYlBoQ1RtUS8wP3d4X2ZtdD1qcGVn"></swiper-slide>
     <swiper-slide>Slide 2</swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
-  </swiper>-->
+  </swiper> -->
   <div class="weui-panel weui-panel_access">
-    <div class="weui-panel__hd">文博最新文章</div>
+    <div class="weui-panel__hd">文博最新文章</div>  
     <div class="weui-panel__bd">
+
+     <!-- <div class="weui-media-box weui-media-box_text">
+          <h4 class="weui-media-box__title">标题一</h4>
+          <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+          <ul class="weui-media-box__info">
+              <li class="weui-media-box__info__meta">文字来源</li>
+              <li class="weui-media-box__info__meta">时间</li>
+              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>
+          </ul>
+      </div> -->
+
         <div class="weui-media-box weui-media-box_appmsg"  v-for="article in articles" :key="article.id">
+          
             <div class="weui-media-box__hd">
                   <a  v-bind:href="[article.URL]" v-on:click="cliLink(article)" >
                     <img class="weui-media-box__thumb"  v-lazy="article.Cover" >
@@ -22,7 +34,7 @@
                 <p class="weui-media-box__desc">{{article.Intro}}</p>
                 <!-- <ul class="weui-media-box__info">
                     <li class="weui-media-box__info__meta">{{article.AppName}}</li>
-                    <li class="weui-media-box__info__meta">{{article.Author}}</li>
+                     <li class="weui-media-box__info__meta">{{article.Author}}</li> 
                     <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><timeago :since="article.PubAt" class="text-muted" locale="zh-CN"></timeago></li>
                 </ul> -->
             </div>
@@ -70,10 +82,10 @@ export default {
         articles: [],
         distance: 0,
         page:0,
-        swiperOption: {
-          pagination: '.swiper-pagination',
-          paginationClickable: true
-        }
+        // swiperOption: {
+        //   pagination: '.swiper-pagination',
+        //   paginationClickable: true
+        // }
       }
     },
     mounted() {

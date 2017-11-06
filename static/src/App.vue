@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-        <header-tab></header-tab>
+    <header-tab></header-tab>
     <router-view/>
-   
+        
+        
+        <vm-back-top :bottom="20"></vm-back-top>
+
+
   </div>
 </template>
 <style>
@@ -11,6 +15,29 @@
      margin-top: 0; 
     position: relative;
     overflow: hidden;
+}
+.weui-media-box_appmsg .weui-media-box__thumb {
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+}
+
+.weui-agree {
+   padding: 0;
+    float: right;
+}
+
+.vm-back-top{
+      line-height: 0.8;
+}
+.vm-back-top-inner {
+    background-color: rgba(0, 0, 0, 0);
+}
+.vm-back-top-inner:hover {
+    background-color: rgba(255, 0, 0, 0.17);
+}
+.vm-back-top i {
+    color: rgba(0, 8, 255, 0.57);
 }
 </style>
 <script>
@@ -50,11 +77,14 @@ import api from './api/index.js';
 
   })
  */
+
+// import BackTop from '@/components/BackTop'
 import HeaderTab from '@/components/Header';
 export default {
   name: 'app',
   components:{
     HeaderTab,
+    // BackTop,
   }
 }
 </script>

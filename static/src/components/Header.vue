@@ -1,14 +1,13 @@
 <template>
 
+<div> <!--
      <div class="weui-navbar">
-          <router-link class="weui-navbar__item"  to="/">热门</router-link>
-   
-          <router-link class="weui-navbar__item"  to="/new">最新</router-link>
+          <router-link class="weui-navbar__item"  to="/">文博</router-link>
+          <router-link class="weui-navbar__item"  to="/new">最新</router-link> 
+          <router-link class="weui-navbar__item" to="/post">分享</router-link>
 
-                
-          <!-- <router-link class="weui-navbar__item" to="/post">分享</router-link> -->
-
-    </div>
+    </div> -->
+</div>
 </template>
 <style>
 .weui-navbar__item.weui-bar__item_on{

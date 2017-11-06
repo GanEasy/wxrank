@@ -3,13 +3,25 @@
 
 
 <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">文博热门文章</div>
+  <div class="weui-panel__hd">
+    文博文章
+
+    
+        <label for="weuiAgree" class="weui-agree">
+            <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="readhot">
+            <span class="weui-agree__text">
+                偏好热门
+            </span>
+        </label>
+  </div>
+
+
+
   <div class="weui-panel__bd">
-      <a class="weui-media-box weui-media-box_appmsg"  v-for="article in articles" :key="article.id">
+      <a class="weui-media-box weui-media-box_appmsg"  v-bind:href="[article.URL]" v-on:click="cliLink(article)"  v-for="article in articles" :key="article.id">
           <div class="weui-media-box__hd">
-                <a  v-bind:href="[article.URL]" v-on:click="cliLink(article)" >
-                  <img class="weui-media-box__thumb"  v-lazy="article.Cover" >
-                </a>  
+                <!-- <img class="weui-media-box__thumb"  v-lazy="article.Cover" > -->
+                <img class="weui-media-box__thumb"  :src="article.Cover" >
           </div>
           <div class="weui-media-box__bd">
               <h4 class="weui-media-box__title">{{article.Title}}</h4>
@@ -64,6 +76,7 @@ export default {
         articles: [],
         distance: 200,
         page:0,
+        readhot:1,
       }
     },
     mounted() {
@@ -74,6 +87,7 @@ export default {
       // })
       this.articles = JSON.parse(window.localStorage.getItem("hot_articles"))||[]
       this.page = parseInt(window.localStorage.getItem("hot_page")) || 0
+      this.readhot = parseInt(window.localStorage.getItem("readhot")) || 0
     },
     methods: {
 
@@ -94,6 +108,13 @@ export default {
             }) 
         },
 
+
+        refresh:function(){
+          this. articles= []
+          this. page=0
+          this.$refs.infiniteLoading.stateChanger.reset()
+        },
+
         infiniteHandler: function ($state) {
 
           if (this.articles.length > 500) {
@@ -103,8 +124,12 @@ export default {
 
             //  setTimeout(function () {
               // console.log("dododododo...");
+              if (this.readhot) {
+                var api = '/hot?limit=10&offset='+this.page*10;
+              }else{
+                var api = '/new?limit=10&offset='+this.page*10;
+              }
 
-              var api = '/hot?limit=5&offset='+this.page*5;
               var site = this
               news.getNew(api,function(err,data){
                 if(data.length>0){
@@ -129,7 +154,16 @@ export default {
         localStorage.setItem("hot_articles",JSON.stringify(this.articles))
         localStorage.setItem("hot_page",this.page)
       },
+      readhot:function(){
+        if(this.readhot){
+        localStorage.setItem("readhot",1)
+        }else{
+        localStorage.setItem("readhot",0)
+        }
+        this.refresh()
+
       }
+    }
 }
 </script>
 
