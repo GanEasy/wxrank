@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/GanEasy/wxrank/orm"
 	"github.com/yizenghui/sda/wechat"
-	"github.com/yizenghui/wx/orm"
 )
 
 func init() {
@@ -50,7 +50,7 @@ func GetArticle(limit, offset, tag int, order string) (articles []orm.Article, e
 
 	// orm.DB().Offset(offset).Limit(limit).Order("rank DESC").Find(&articles)
 	for key, article := range articles {
-		articles[key].Cover = "http://pic3.readfollow.com/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
+		articles[key].Cover = "http://localhost:8004/image/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
 		article.URL = strings.Replace(article.URL, `http://`, `https://`, -1)
 		articles[key].URL = strings.Replace(article.URL, `#rd`, "&scene=27#wechat_redirect", 1)
 
@@ -66,56 +66,6 @@ func GetArticle(limit, offset, tag int, order string) (articles []orm.Article, e
 
 	}
 
-	return
-}
-
-//Hot ..
-func Hot(limit, offset int) (articles []orm.Article, err error) {
-
-	var a orm.Article
-	articles = a.Hot(limit, offset)
-	for key, article := range articles {
-		articles[key].Cover = "http://pic3.readfollow.com/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
-		article.URL = strings.Replace(article.URL, `http://`, `https://`, -1)
-		articles[key].URL = strings.Replace(article.URL, `#rd`, "&scene=27#wechat_redirect", 1)
-
-		article.Title = strings.Replace(article.Title, `\x26quot;`, `"`, -1)
-		article.Title = strings.Replace(article.Title, `\x26amp;`, `&`, -1)
-		article.Title = strings.Replace(article.Title, `\x0a`, `
-			`, -1)
-		articles[key].Title = article.Title
-
-		article.Intro = strings.Replace(article.Intro, `\x0a`, "\n", -1)
-		article.Intro = strings.Replace(article.Intro, `\x26quot;`, `"`, -1)
-		article.Intro = strings.Replace(article.Intro, `\x26amp;`, `&`, -1)
-		articles[key].Intro = article.Intro
-
-	}
-
-	return
-}
-
-//New ..
-func New(limit, offset int) (articles []orm.Article, err error) {
-
-	var a orm.Article
-	articles = a.New(limit, offset)
-	for key, article := range articles {
-		articles[key].Cover = "http://pic3.readfollow.com/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
-		article.URL = strings.Replace(article.URL, `http://`, "https://", -1)
-		articles[key].URL = strings.Replace(article.URL, `#rd`, "&scene=27#wechat_redirect", 1)
-
-		article.Title = strings.Replace(article.Title, `\x26quot;`, `"`, -1)
-		article.Title = strings.Replace(article.Title, `\x26amp;`, `&`, -1)
-		article.Title = strings.Replace(article.Title, `\x0a`, `\n`, -1)
-		articles[key].Title = article.Title
-
-		article.Intro = strings.Replace(article.Intro, `\x0a`, "\n", -1)
-		article.Intro = strings.Replace(article.Intro, `\x26quot;`, `"`, -1)
-		article.Intro = strings.Replace(article.Intro, `\x26amp;`, `&`, -1)
-		articles[key].Intro = article.Intro
-		//
-	}
 	return
 }
 

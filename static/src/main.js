@@ -1,5 +1,9 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
+import 'weui/dist/style/weui.min.css'
+import 'swiper/dist/css/swiper.css'
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -15,8 +19,6 @@ import VueLazyload from 'vue-lazyload'
 
 import VueTimeago from 'vue-timeago'
 
-import 'weui/dist/style/weui.min.css'
-import 'swiper/dist/css/swiper.css'
 
 var VueAwesomeSwiper = require('vue-awesome-swiper')
 
@@ -52,10 +54,8 @@ Vue.use(VueAwesomeSwiper)
         var __to = localStorage.getItem("__to")||''
         // to 和 from 都是 路由信息对象
         if(to.path != from.path && __to !=to.path ){
-          localStorage.removeItem("hot_articles")
-          localStorage.removeItem("hot_page")
-          localStorage.removeItem("new_articles")
-          localStorage.removeItem("new_page")
+          localStorage.removeItem("articles")
+          localStorage.removeItem("page")
         //   console.log("clear cache")
         }
         

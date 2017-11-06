@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/GanEasy/wxrank/orm"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/yizenghui/sda/wechat"
-	"github.com/yizenghui/wx/orm"
 )
 
 func Test_Post(t *testing.T) {

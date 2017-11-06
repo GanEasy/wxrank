@@ -1,24 +1,30 @@
 //index.vue
 <template>
 
-
+<div>
+  <!--
+ <div class="weui-flex">
+            <div class="weui-flex__item"><div class="placeholder">文博</div></div>
+            <div class="weui-flex__item"><div class="placeholder">汽车</div></div>
+            <div class="weui-flex__item"><div class="placeholder">程序</div></div>
+            <div class="weui-flex__item"><div class="placeholder">全部</div></div>
+        </div>
+-->
 <div class="weui-panel weui-panel_access">
   <div class="weui-panel__hd">
     文博文章
-
-    
-        <label for="weuiAgree" class="weui-agree">
-            <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="readhot">
-            <span class="weui-agree__text">
-                偏好热门
-            </span>
-        </label>
+    <label for="weuiAgree" class="weui-agree"  v-on:click="refresh()" >
+        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="readhot" >
+        <span class="weui-agree__text">
+            偏好热门
+        </span>
+    </label>
   </div>
 
 
 
   <div class="weui-panel__bd">
-      <a class="weui-media-box weui-media-box_appmsg"  v-bind:href="[article.URL]" v-on:click="cliLink(article)"  v-for="article in articles" :key="article.id">
+      <a class="weui-media-box weui-media-box_appmsg" v-on:click="cliLink(article)"  v-bind:href="[article.URL]"  v-for="article in articles" :key="article.id">
           <div class="weui-media-box__hd">
                 <!-- <img class="weui-media-box__thumb"  v-lazy="article.Cover" > -->
                 <img class="weui-media-box__thumb"  :src="article.Cover" >
@@ -55,9 +61,21 @@
 </div>
 
 
+</div>
+
 
 </template>
-
+<style>
+ .placeholder {
+    margin: 5px;
+    padding: 0 10px;
+    background-color: #ebebeb;
+    height: 2.3em;
+    line-height: 2.3em;
+    text-align: center;
+    color: #cfcfcf;
+}
+</style>
 <script>
 
 import InfiniteLoading from 'vue-infinite-loading'
@@ -77,6 +95,7 @@ export default {
         distance: 200,
         page:0,
         readhot:1,
+
       }
     },
     mounted() {
@@ -85,34 +104,42 @@ export default {
       // news.getNew(api,function(err,data){
       //       site.articles = data
       // })
-      this.articles = JSON.parse(window.localStorage.getItem("hot_articles"))||[]
-      this.page = parseInt(window.localStorage.getItem("hot_page")) || 0
+      this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
+      this.page = parseInt(window.localStorage.getItem("page")) || 0
       this.readhot = parseInt(window.localStorage.getItem("readhot")) || 0
+
     },
     methods: {
 
         cliLink:function(article){
-          console.log(article)
-          // alert(article.ID)
-          return false
-        },
-
-        like:function(article){
-          news.like(article.ID,function(err,data){
-            article.Like = data.Like
+          setTimeout(function(){
+            window.location.href = article.URL
+          }, 200);
+          news.view(article.ID,function(err,data){
+            window.location.href = article.URL
           })
+
         },
-        hate:function(article){
-            news.hate(article.ID,function(err,data){
-               article.Hate = data.Hate
-            }) 
-        },
+        // like:function(article){
+        //   news.like(article.ID,function(err,data){
+        //     article.Like = data.Like
+        //   })
+        // },
+        // hate:function(article){
+        //     news.hate(article.ID,function(err,data){
+        //        article.Hate = data.Hate
+        //     }) 
+        // },
 
 
         refresh:function(){
-          this. articles= []
-          this. page=0
-          this.$refs.infiniteLoading.stateChanger.reset()
+          var site = this
+          setTimeout(function(){
+            site.articles= []
+            site.page=0
+            site.$refs.infiniteLoading.stateChanger.reset()
+          }, 50);
+          return true
         },
 
         infiniteHandler: function ($state) {
@@ -125,9 +152,9 @@ export default {
             //  setTimeout(function () {
               // console.log("dododododo...");
               if (this.readhot) {
-                var api = '/hot?limit=10&offset='+this.page*10;
+                var api = '/article?order=hot&limit=10&offset='+this.page*10;
               }else{
-                var api = '/new?limit=10&offset='+this.page*10;
+                var api = '/article?order=id&limit=10&offset='+this.page*10;
               }
 
               var site = this
@@ -151,8 +178,8 @@ export default {
 
     watch:{
       articles:function(){
-        localStorage.setItem("hot_articles",JSON.stringify(this.articles))
-        localStorage.setItem("hot_page",this.page)
+        localStorage.setItem("articles",JSON.stringify(this.articles))
+        localStorage.setItem("page",this.page)
       },
       readhot:function(){
         if(this.readhot){
@@ -160,7 +187,7 @@ export default {
         }else{
         localStorage.setItem("readhot",0)
         }
-        this.refresh()
+        // this.refresh()
 
       }
     }

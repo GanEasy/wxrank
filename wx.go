@@ -1,15 +1,16 @@
 package main
 
 import (
+	"encoding/base64"
 	"html/template"
 	"io"
 	"net/http"
 	"strconv"
 
+	"github.com/GanEasy/wxrank/orm"
+	"github.com/GanEasy/wxrank/repository"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/yizenghui/wx/orm"
-	"github.com/yizenghui/wx/repository"
 )
 
 // 接入微信接口服务
@@ -29,7 +30,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-//Home 主页
+//Home 主页 失效
 func Home(c echo.Context) error {
 	articles, err := repository.New(10, 0)
 
@@ -50,12 +51,14 @@ func Home(c echo.Context) error {
 	return c.Render(http.StatusOK, "home", data)
 }
 
-//Hot 热门数据
-func Hot(c echo.Context) error {
+//Articles 文章接口
+func Articles(c echo.Context) error {
 	// fmt.Println(mapWhere)
 
 	limit, _ := strconv.Atoi(c.QueryParam("limit"))
 	offset, _ := strconv.Atoi(c.QueryParam("offset"))
+	tag, _ := strconv.Atoi(c.QueryParam("tag"))
+	order := c.QueryParam("order")
 
 	if limit <= 0 || limit > 100 {
 		limit = 10
@@ -65,29 +68,7 @@ func Hot(c echo.Context) error {
 		offset = 0
 	}
 
-	articles, err := repository.Hot(limit, offset)
-
-	if err != nil {
-
-	}
-
-	return c.JSON(http.StatusOK, articles)
-}
-
-//New 最新数据
-func New(c echo.Context) error {
-	limit, _ := strconv.Atoi(c.QueryParam("limit"))
-	offset, _ := strconv.Atoi(c.QueryParam("offset"))
-
-	if limit <= 0 || limit > 100 {
-		limit = 10
-	}
-	// limit = 10
-	if offset < 0 || offset > 500 {
-		offset = 0
-	}
-
-	articles, err := repository.New(limit, offset)
+	articles, err := repository.GetArticle(limit, offset, tag, order)
 
 	if err != nil {
 
@@ -142,14 +123,27 @@ func Post(c echo.Context) error {
 	return c.JSON(http.StatusOK, "0")
 }
 
+//ImageServe 图片服务
+func ImageServe(c echo.Context) error {
+	input := c.Param("url")
+	uDec, err := base64.URLEncoding.DecodeString(input)
+	if err != nil {
+		repository.PrintErrorImageHandler(c.Response().Writer, c.Request())
+	} else {
+		repository.PrintImageHandler(string(uDec), c.Response().Writer, c.Request())
+	}
+	var err2 error
+	return err2
+}
+
 func main() {
 
-	t := &Template{
-		templates: template.Must(template.ParseGlob("views/*.html")),
-	}
-
 	e := echo.New()
-	e.Renderer = t
+	// t := &Template{
+	// 	templates: template.Must(template.ParseGlob("views/*.html")),
+	// }
+
+	// e.Renderer = t
 	e.Use(middleware.CORS())
 
 	// e.Pre(middleware.HTTPSRedirect())
@@ -162,24 +156,29 @@ func main() {
 	// e.GET("/", Home)
 	e.File("/", "static/dist/index.html")
 
-	e.GET("/fetch", Fetch)
-	e.POST("/post", Post)
+	// 请求抓取
+	e.GET("/api/fetch", Fetch)
+	e.POST("/api/post", Post)
 
-	e.GET("/new", New)
-	e.POST("/new", New)
+	// 用户查看文章时请求该接口
+	e.GET("/api/view/:id", View)
 
-	e.GET("/view/:id", View)
+	// 获取微信文章接口
+	e.GET("/api/article", Articles)
 
-	e.GET("/hot", Hot)
-	e.GET("/jssdk", JsSDK)
+	// e.GET("/view/:id", View)
+
+	// e.GET("/jssdk", JsSDK)
 
 	e.File("/favicon.ico", "images/favicon.ico")
 
-	e.Any("/wx_callback", echoWxCallbackHandler)
+	// e.Any("/wx_callback", echoWxCallbackHandler)
 
 	e.Static("static", "static/dist/static")
 
 	e.Static("file", "file")
+
+	e.GET("image/:url", ImageServe)
 
 	// e.Static("/", "src")
 	// Start server

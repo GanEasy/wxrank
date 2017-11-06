@@ -3,7 +3,7 @@ package repository
 import (
 	"errors"
 
-	"github.com/yizenghui/wx/orm"
+	"github.com/GanEasy/wxrank/orm"
 )
 
 func GetMediaIDByAppID() {
