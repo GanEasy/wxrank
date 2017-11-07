@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/GanEasy/wxrank/orm"
 	"github.com/GanEasy/wxrank/repository"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -28,27 +27,6 @@ type Template struct {
 // Render ..
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-//Home 主页 失效
-func Home(c echo.Context) error {
-	articles, err := repository.New(10, 0)
-
-	if err != nil {
-
-	}
-
-	type Data struct {
-		Title    string
-		Articles []orm.Article
-	}
-
-	data := Data{
-		Title:    "tttiii",
-		Articles: articles,
-	}
-
-	return c.Render(http.StatusOK, "home", data)
 }
 
 //Articles 文章接口
