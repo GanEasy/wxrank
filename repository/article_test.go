@@ -101,6 +101,28 @@ func Test_Pos22t(t *testing.T) {
 
 }
 
+func Test_SliceRemoveDuplicates(t *testing.T) {
+	var tags []int
+	tags = append(tags, 1)
+	tags = append(tags, 2)
+	tags = append(tags, 2)
+	tags = append(tags, 3)
+	// t.Fatal(tags)
+
+	ta := make(map[int]int)
+	for _, k := range tags {
+		ta[k] = 1
+	}
+
+	var tt []int
+	for k := range ta {
+		tt = append(tt, k)
+
+	}
+
+	t.Fatal(tt)
+
+}
 func Test_GetArticle(t *testing.T) {
 	articles, _ := GetArticle(5, 0, 0, "id")
 	fmt.Println(articles)
