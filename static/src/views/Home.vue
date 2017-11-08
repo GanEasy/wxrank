@@ -11,7 +11,7 @@
     </div>
 </div>
 
- <div class="weui-flex">
+ <!-- <div class="weui-flex">
             <div class="weui-flex__item">
                   <div class="weui-cell weui-cell_select">
                     <div class="weui-cell__bd">
@@ -31,13 +31,12 @@
                   </span>
               </label>
             </div>
-        </div>
-
+        </div> -->
 
 
 
 <div class="weui-panel weui-panel_access">
-  <!-- <div class="weui-panel__hd">
+   <div class="weui-panel__hd">
     <span>文博文章</span>
     
 
@@ -47,10 +46,36 @@
             偏好热门
         </span>
     </label>
-  </div> -->
+  </div> 
+  <!-- <div class="page__bd">
+        <div class="weui-cells__title">选择分类阅读</div>
+        <div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" v-for="tag in tags" :key="tag.value">
+                <div class="weui-cell__bd">
+                    <p>{{tag.text}}</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" v-bind:value="tag.value"  v-model="selecttag">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+        </div>
 
+    </div> -->
 
-
+<!--
+        <div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" v-for="tag in tags" :key="tag.value">
+                <div class="weui-cell__bd">
+                    <p>{{tag.text}}</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" class="weui-check" v-bind:value="tag.value"  v-model="selecttag">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+        </div>
+-->
   <div class="weui-panel__bd">
       <a class="weui-media-box weui-media-box_appmsg" v-on:click="cliLink(article)"  v-for="article in articles" :key="article.id">
           <div class="weui-media-box__hd">

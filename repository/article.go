@@ -50,7 +50,8 @@ func GetArticle(limit, offset, tag int, order string) (articles []orm.Article, e
 
 	// orm.DB().Offset(offset).Limit(limit).Order("rank DESC").Find(&articles)
 	for key, article := range articles {
-		articles[key].Cover = "http://localhost:8004/image/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
+		// articles[key].Cover = "http://localhost:8004/image/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
+		articles[key].Cover = "http://pic3.readfollow.com/" + base64.URLEncoding.EncodeToString([]byte(article.Cover))
 		article.URL = strings.Replace(article.URL, `http://`, `https://`, -1)
 		articles[key].URL = strings.Replace(article.URL, `#rd`, "&scene=27#wechat_redirect", 1)
 

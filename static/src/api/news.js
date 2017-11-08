@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // axios.defaults.baseURL = 'http://wb.readfollow.com';
 axios.defaults.baseURL = 'http://localhost:8004/api';
-// axios.defaults.baseURL = '/';
+// axios.defaults.baseURL = '/api';
 
 export default {
   getNew(data, callback){
