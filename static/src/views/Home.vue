@@ -2,31 +2,59 @@
 <template>
 
 <div>
-  <!--
+
+
+<div id="loadingToast" v-if="showload">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">
+    <i class="weui-loading weui-icon_toast"></i>
+    </div>
+</div>
+
  <div class="weui-flex">
-            <div class="weui-flex__item"><div class="placeholder">文博</div></div>
-            <div class="weui-flex__item"><div class="placeholder">汽车</div></div>
-            <div class="weui-flex__item"><div class="placeholder">程序</div></div>
-            <div class="weui-flex__item"><div class="placeholder">全部</div></div>
+            <div class="weui-flex__item">
+                  <div class="weui-cell weui-cell_select">
+                    <div class="weui-cell__bd">
+                        <select class="weui-select"  v-model="selecttag"  @change="refresh">
+                            <option v-for="tag in tags" v-bind:value="tag.value" :key="tag.value">  
+                              {{ tag.text }}  
+                            </option> 
+                        </select>
+                    </div>
+                </div>
+          </div>
+            <div class="weui-flex__item" style="line-height:45px;padding-right:15px">
+              <label for="weuiAgree" class="weui-agree"  v-on:click="refresh()" >
+                  <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="readhot" >
+                  <span class="weui-agree__text">
+                      偏好热门
+                  </span>
+              </label>
+            </div>
         </div>
--->
+
+
+
+
 <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">
-    文博文章
+  <!-- <div class="weui-panel__hd">
+    <span>文博文章</span>
+    
+
     <label for="weuiAgree" class="weui-agree"  v-on:click="refresh()" >
         <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="readhot" >
         <span class="weui-agree__text">
             偏好热门
         </span>
     </label>
-  </div>
+  </div> -->
 
 
 
   <div class="weui-panel__bd">
-      <a class="weui-media-box weui-media-box_appmsg" v-on:click="cliLink(article)"  v-bind:href="[article.URL]"  v-for="article in articles" :key="article.id">
+      <a class="weui-media-box weui-media-box_appmsg" v-on:click="cliLink(article)"  v-for="article in articles" :key="article.id">
           <div class="weui-media-box__hd">
-                <!-- <img class="weui-media-box__thumb"  v-lazy="article.Cover" > -->
+                <!-- <img class="weui-media-box__thumb"  v-lazy="article.Cover" >  v-bind:href="[article.URL]" -->
                 <img class="weui-media-box__thumb"  :src="article.Cover" >
           </div>
           <div class="weui-media-box__bd">
@@ -46,12 +74,12 @@
 
     <div slot="spinner" class="weui-loadmore">
         <i class="weui-loading"></i>
-        <span class="weui-loadmore__tips">正在加载</span>
     </div>
 
     <div slot="no-results" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">暂无数据</span>
+      <span class="weui-loadmore__tips">无法获取数据！</span>
     </div>
+
     <div slot="no-more" class="weui-loadmore weui-loadmore_line">
       <span class="weui-loadmore__tips">到底啦！</span>
     </div>
@@ -75,6 +103,9 @@
     text-align: center;
     color: #cfcfcf;
 }
+.weui-toast{
+    background: none;
+}
 </style>
 <script>
 
@@ -91,11 +122,18 @@ export default {
     },
     data () {
       return {
+        selecttag: 0,  
+        tags: [  
+          { text: '全部文章', value: 0 },  
+          { text: '文博行业', value: 1 },  
+          { text: '编程技术', value: 2 },
+          { text: '汽车', value: 3 }  
+        ]  ,
         articles: [],
         distance: 200,
         page:0,
         readhot:1,
-
+        showload:false,
       }
     },
     mounted() {
@@ -107,16 +145,20 @@ export default {
       this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
       this.page = parseInt(window.localStorage.getItem("page")) || 0
       this.readhot = parseInt(window.localStorage.getItem("readhot")) || 0
-
+      this.selecttag = parseInt(window.localStorage.getItem("selecttag")) || 0
     },
     methods: {
 
         cliLink:function(article){
+          var site = this
+         site.showload = true
           setTimeout(function(){
+            site.showload = false
             window.location.href = article.URL
           }, 200);
           news.view(article.ID,function(err,data){
-            window.location.href = article.URL
+            // site.showload = false
+            // window.location.href = article.URL
           })
 
         },
@@ -152,23 +194,26 @@ export default {
             //  setTimeout(function () {
               // console.log("dododododo...");
               if (this.readhot) {
-                var api = '/article?order=hot&limit=10&offset='+this.page*10;
+                var api = '/article?order=hot&limit=10&offset='+this.page*10+'&tag='+this.selecttag;
               }else{
-                var api = '/article?order=id&limit=10&offset='+this.page*10;
+                var api = '/article?order=id&limit=10&offset='+this.page*10+'&tag='+this.selecttag;
               }
 
               var site = this
-              news.getNew(api,function(err,data){
-                if(data.length>0){
-                  for(var t=0;t<data.length;t++){
-                    site.articles.push(data[t])
+
+              setTimeout(function(){
+                news.getNew(api,function(err,data){
+                  if(data.length>0){
+                    for(var t=0;t<data.length;t++){
+                      site.articles.push(data[t])
+                    }
+                    $state.loaded();
+                    site.page ++
+                  }else{
+                    $state.complete();
                   }
-                  $state.loaded();
-                  site.page ++
-                }else{
-                  $state.complete();
-                }
-              })
+                })
+              }, 200);
             // }.bind(this), 1000);
           }
         },
@@ -180,6 +225,10 @@ export default {
       articles:function(){
         localStorage.setItem("articles",JSON.stringify(this.articles))
         localStorage.setItem("page",this.page)
+      },    
+      selecttag:function(){
+        localStorage.setItem("selecttag",this.selecttag)
+        // this.refresh()
       },
       readhot:function(){
         if(this.readhot){
