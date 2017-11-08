@@ -101,23 +101,11 @@ func Test_Pos22t(t *testing.T) {
 
 }
 
-func Test_Hot22(t *testing.T) {
-	orm.DB().AutoMigrate(&orm.Article{})
-	orm.DB().AutoMigrate(&orm.Tag{}, &orm.Media{}, &orm.Post{})
-}
-func Test_Hot(t *testing.T) {
-	articles, _ := Hot(5, 0)
-	fmt.Println(articles)
-}
 func Test_GetArticle(t *testing.T) {
 	articles, _ := GetArticle(5, 0, 0, "id")
 	fmt.Println(articles)
 	t.Error(articles)
 
-}
-func Test_New(t *testing.T) {
-	articles, _ := New(5, 0)
-	fmt.Println(articles)
 }
 func Test_New2(t *testing.T) {
 	articles, _ := GetArticle(5, 0, 2, "id")
