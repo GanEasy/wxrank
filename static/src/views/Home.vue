@@ -37,13 +37,13 @@
 
 <div class="weui-panel weui-panel_access">
    <div class="weui-panel__hd">
-    <span>WeChat Article Read Follow</span>
+    <span>跟读微信文章</span>
     
 
     <label for="weuiAgree" class="weui-agree"  v-on:click="refresh()" >
         <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" v-model="readhot" >
         <span class="weui-agree__text">
-            Hot 
+            偏好热门
         </span>
     </label>
   </div> 
@@ -102,11 +102,11 @@
     </div>
 
     <div slot="no-results" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">Error Getting Data!</span>
+      <span class="weui-loadmore__tips">获取数据失败!</span>
     </div>
 
     <div slot="no-more" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">No More!</span>
+      <span class="weui-loadmore__tips">无法加载更多数据!</span>
     </div>
 
 

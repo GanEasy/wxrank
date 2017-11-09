@@ -3,7 +3,8 @@ import axios from 'axios'
 
 
 // axios.defaults.baseURL = 'http://wb.readfollow.com';
-axios.defaults.baseURL = 'http://localhost:8004/api';
+axios.defaults.baseURL = 'http://api.readfollow.com';
+// axios.defaults.baseURL = 'http://localhost:8004/api';
 // axios.defaults.baseURL = '/api';
 
 export default {
