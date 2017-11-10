@@ -1,15 +1,44 @@
 <template>
 
-<div> <!--
-     <div class="weui-navbar">
+<div>
+    <!-- <div class="weui-navbar">
           <router-link class="weui-navbar__item"  to="/">文博</router-link>
           <router-link class="weui-navbar__item"  to="/new">最新</router-link> 
           <router-link class="weui-navbar__item" to="/post">分享</router-link>
 
-    </div> -->
+    </div> 
+
+    <div class="page__hd">
+        <h1 class="page__title">Rf</h1>
+        <p class="page__desc">跟读微信文章</p>
+    </div>
+ -->
+    <!-- <div class="weui-grids">
+    <a href="javascript:;" class="weui-grid">
+        <p class="weui-grid__label">
+            文博资讯
+        </p>
+    </a>
+    <a href="javascript:;" class="weui-grid">
+        <p class="weui-grid__label">
+            IT/互联
+        </p>
+    </a>
+    <a href="javascript:;" class="weui-grid">
+        <p class="weui-grid__label">
+            汽车频道
+        </p>
+    </a>
+  </div> -->
+  
+   <!-- <div class="weui-cells__tips">免责声名</div> -->
 </div>
 </template>
 <style>
+
+.page__hd {
+    padding: 40px;
+}
 .weui-navbar__item.weui-bar__item_on{
   background-color:white;
   color: red;

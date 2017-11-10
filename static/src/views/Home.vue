@@ -11,6 +11,18 @@
     </div>
 </div>
 
+<div class="weui-flex">
+            <div class="weui-flex__item">
+                <div class="page__hd">
+                    <h1 class="page__title">Rf</h1>
+                </div>  
+              </div>
+            <div class="weui-flex__item">
+              <scroll-picker :options="tags" v-model="selecttag"></scroll-picker>
+            </div>
+        </div>
+    
+
  <!-- <div class="weui-flex">
             <div class="weui-flex__item">
                   <div class="weui-cell weui-cell_select">
@@ -149,10 +161,12 @@ export default {
       return {
         selecttag: 0,  
         tags: [  
-          { text: '全部文章', value: 0 },  
-          { text: '文博行业', value: 1 },  
-          { text: '编程技术', value: 2 },
-          { text: '汽车', value: 3 }  
+          { name: '全部', value: 0 },  
+          { name: '文博', value: 1 },  
+          // { name: '编程技术', value: 2 },
+          // { name: '汽车', value: 3 }  
+
+          
         ]  ,
         articles: [],
         distance: 200,
@@ -253,7 +267,7 @@ export default {
       },    
       selecttag:function(){
         localStorage.setItem("selecttag",this.selecttag)
-        // this.refresh()
+        this.refresh()
       },
       readhot:function(){
         if(this.readhot){

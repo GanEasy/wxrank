@@ -25,6 +25,9 @@ var VueAwesomeSwiper = require('vue-awesome-swiper')
 import VmBackTop from 'vue-multiple-back-top'
 
 
+import VueScrollPicker from 'vue-scroll-picker'
+
+Vue.use(VueScrollPicker)
 
 Vue.use(VueTimeago, {
     name: 'timeago', // component name, `timeago` by default
