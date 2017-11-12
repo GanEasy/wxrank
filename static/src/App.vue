@@ -3,10 +3,10 @@
     <header-tab></header-tab>
     <router-view/>
         
-        
-             <!-- <vm-back-top :bottom="100" :timing="'ease'">
-              <svg class="icon" width="20px" height="20.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(0, 8, 255, 0.57)" d="M936.3 667.6L823.1 780.7 512 469.6 200.9 780.7 87.7 667.6 512 243.3l424.3 424.3z"  /></svg>
-            </vm-back-top> -->
+
+    <vm-back-top :bottom="100" :timing="'ease'">
+        <svg class="icon" width="20px" height="20.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(0, 8, 255, 0.57)" d="M936.3 667.6L823.1 780.7 512 469.6 200.9 780.7 87.7 667.6 512 243.3l424.3 424.3z"  /></svg>
+    </vm-back-top>
 
 
   </div>
