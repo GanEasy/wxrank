@@ -22,12 +22,12 @@ import VueTimeago from 'vue-timeago'
 
 var VueAwesomeSwiper = require('vue-awesome-swiper')
 
-import VmBackTop from 'vue-multiple-back-top'
+// import VmBackTop from 'vue-multiple-back-top'
 
 
-import VueScrollPicker from 'vue-scroll-picker'
+// import VueScrollPicker from 'vue-scroll-picker'
 
-Vue.use(VueScrollPicker)
+// Vue.use(VueScrollPicker)
 
 Vue.use(VueTimeago, {
     name: 'timeago', // component name, `timeago` by default
@@ -43,7 +43,7 @@ Vue.use(VueLazyload)
 
 
 
-Vue.component(VmBackTop.name, VmBackTop)
+// Vue.component(VmBackTop.name, VmBackTop)
 
 // mount with global
 Vue.use(VueAwesomeSwiper)

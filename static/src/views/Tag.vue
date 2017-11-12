@@ -6,11 +6,20 @@
 
 
 
-    <div class="page__hd">
+    <!-- <div class="page__hd">
         <p class="page__desc"><router-link class="weui-agree__text" :to="{ name: 'home'}">跟读微信文章</router-link></p>
-    </div>
+    </div> -->
         <div class="weui-cells__title">分类列表</div>
-        <div class="weui-cells">
+
+
+          <router-link class="weui-cell weui-cell_access"  :to="{ name: 'home'}">
+             <div class="weui-cell__bd">
+                    <p>全部</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+
+          </router-link>
 
           <router-link class="weui-cell weui-cell_access" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in category" :key="cate.ID">
              <div class="weui-cell__bd">

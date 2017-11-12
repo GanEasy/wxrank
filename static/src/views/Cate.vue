@@ -8,12 +8,14 @@
 
 <div class="weui-panel weui-panel_access">
    <div class="weui-panel__hd">
-    <span>{{tag.Title}}</span>
-    
+    <span>跟读微信文章</span>
+    <!-- <router-link class="weui-agree__text" :to="{ name: 'home'}">跟读微信文章</router-link> -->
 
 
     <label for="weuiAgree" class="weui-agree">
-        <router-link class="weui-agree__text" :to="{ name: 'tags'}">分类</router-link>
+        
+        
+              <router-link class="weui-agree__text" :to="{ name: 'tags'}">{{tag.Title}} </router-link>
     </label>
   </div> 
 
