@@ -4,21 +4,20 @@
 <div>
 
 
+
+
 <div class="weui-panel weui-panel_access">
    <div class="weui-panel__hd">
-    <span>
-      <router-link class="weui-agree__text" :to="{ name: 'home'}">跟读微信文章</router-link>
-    </span>
+    <span>{{tag.Title}}</span>
     
+
 
     <label for="weuiAgree" class="weui-agree">
         <router-link class="weui-agree__text" :to="{ name: 'tags'}">分类</router-link>
     </label>
   </div> 
 
-  
   <ArticleList :cate="cate"></ArticleList>
-
 </div>
 
 
@@ -48,30 +47,32 @@ import news from '../api/news.js';
 
 export default {
   
-  name: 'indexP',
+  name: 'cateP',
   
   
     components: {
       InfiniteLoading,
-      ArticleList
+      ArticleList,
+      cate:[],
     },
     data () {
       return {
         cate: 0,
+        tag:[]
       }
     },
     mounted() {
+      this.cate = this.$route.params.id
+      this.GetTagInfo()
     },
     methods: {
-
-       
-
+      GetTagInfo:function(){
+          var site = this
+          news.getNew("/tag/"+site.cate,function(err,data){
+            site.tag = data
+          })
+      }
     },
-
-
-    watch:{
-     
-    }
 }
 </script>
 
