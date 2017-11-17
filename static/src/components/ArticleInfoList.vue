@@ -68,7 +68,10 @@
 </template>
 <style>
 .refresh{
-    bottom: 60px;
+    width:30px;
+    height: 30px;
+    line-height: 30px;
+    bottom: 20px;
     right: 30px;
     z-index: 10;
     position: fixed;
