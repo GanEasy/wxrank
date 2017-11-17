@@ -44,7 +44,7 @@
 </style>
 <script>
 
-import ArticleList from '@/components/ArticleList';
+import ArticleList from '@/components/ArticleInfoList';
 import InfiniteLoading from 'vue-infinite-loading'
 import news from '../api/news.js';
 
@@ -72,7 +72,9 @@ export default {
 
 
     watch:{
-     
+      cate:function(){
+        console.log(this.cate)
+      }
     }
 }
 </script>

@@ -56,9 +56,11 @@ Vue.use(VueAwesomeSwiper)
 
         var __to = localStorage.getItem("__to")||''
         // to 和 from 都是 路由信息对象
+        
+        // console.log(to.path ,from.path , __to ,to.path )
         if(to.path != from.path && __to !=to.path ){
           localStorage.removeItem("articles")
-          localStorage.removeItem("page")
+          localStorage.removeItem("rank")
         //   console.log("clear cache")
         }
         

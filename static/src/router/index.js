@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import homePage from '@/views/Home'
+import hotPage from '@/views/Hot'
 import newPage from '@/views/New'
 import postPage from '@/views/Post'
 import CatePage from '@/views/Cate' // 进入某个分类
@@ -10,13 +11,19 @@ import TagPage from '@/views/Tag' // 展示所有标签
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     linkExactActiveClass:"weui-bar__item_on",
 
     routes: [
         {
             path:'/',
             name: 'home',
-            component:homePage
+            redirect: '/hot'
+        },      
+        {
+            path:'/hot',
+            name: 'hot',
+            component:hotPage
         },
         {
             path:'/new',
