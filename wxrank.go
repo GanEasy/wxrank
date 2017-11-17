@@ -8,6 +8,8 @@ func main() {
 	e.File("/", "static/dist/index.html")
 	e.File("/cate/:id", "static/dist/index.html")
 	e.File("/tags", "static/dist/index.html")
+	e.File("/hot", "static/dist/index.html")
+	e.File("/new", "static/dist/index.html")
 	e.Static("static", "static/dist/static")
 	e.Logger.Fatal(e.Start(":8006"))
 	// e.Logger.Fatal(e.StartAutoTLS(":443"))
