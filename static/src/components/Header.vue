@@ -34,7 +34,7 @@
   </div>
   -->
 
-    <div class="weui-panel__hd">
+    <div class="weui-panel__hd hd_no_boder">
 
         <div class="weui-flex navber">
           <router-link class="weui-flex__item"  :to="{ name: 'hot'}">
@@ -42,6 +42,9 @@
           </router-link>
           <router-link class="weui-flex__item" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in category" :key="cate.ID">
              {{cate.Title}}
+          </router-link>
+          <router-link class="weui-flex__item"  :to="{ name: 'about'}">
+            关于
           </router-link>
         </div>
     </div>
@@ -52,6 +55,10 @@
 .navber{
     text-align: center;
 }
+.weui-panel__hd:after{
+    border: none;
+}
+
 .navber a{
     color: #999
 }
