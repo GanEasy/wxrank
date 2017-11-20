@@ -1,37 +1,103 @@
 <template>
 <div>
-    <div class="weui-cells__title">分类列表</div>
-     <a href="/" class="weui-cell weui-cell_access">
+
+
+
+
+    <div class="weui-cells__title">用户反馈</div>
+
+     <router-link :to="{ name: 'feedbackmedia'}" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
             <p>提交公众号</p>
         </div>
         <div class="weui-cell__ft"></div>
-    </a> 
-    <a href="/cate/1" class="weui-cell weui-cell_access">
+    </router-link>
+
+     <router-link :to="{ name: 'feedbackarticle'}" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
             <p>文章未收录</p>
         </div> 
         <div class="weui-cell__ft"></div>
-    </a>
-    <a href="/cate/2" class="weui-cell weui-cell_access">
+    </router-link>
+
+     <router-link :to="{ name: 'feedbackprivacy'}" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
             <p>侵犯隐私</p>
-        </div>
+        </div> 
         <div class="weui-cell__ft"></div>
-    </a>
-    <a href="/cate/3" class="weui-cell weui-cell_access">
+    </router-link>
+
+     <router-link :to="{ name: 'feedbackreport'}" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
             <p>信息举报</p>
-        </div>
+        </div> 
         <div class="weui-cell__ft"></div>
-    </a>
-    <a href="/cate/129" class="weui-cell weui-cell_access">
+    </router-link>
+
+
+
+    <router-link :to="{ name: 'feedbackother'}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>优化建议</p>
+        </div> 
+        <div class="weui-cell__ft"></div>
+    </router-link>
+    
+     <router-link :to="{ name: 'feedbackother'}" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
             <p>其它</p>
-        </div>
+        </div> 
         <div class="weui-cell__ft"></div>
-    </a>
-             
+    </router-link>
+    
+    <div class="weui-cells__title">相关</div>
+
+     <router-link :to="{ name: 'feedbackother'}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>排序</p>
+        </div> 
+        <div class="weui-cell__ft"></div>
+    </router-link>
+
+    <router-link :to="{ name: 'feedbackother'}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>推广</p>
+        </div> 
+        <div class="weui-cell__ft"></div>
+    </router-link>
+
+
+    
+
+    <div class="weui-cells__title">自助服务</div>
+
+     <router-link :to="{ name: 'servicepost'}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>提交文章</p>
+        </div> 
+        <div class="weui-cell__ft">
+            分享文章
+        </div>
+    </router-link>
+
+     <router-link :to="{ name: 'servicedelete'}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>删除收录</p>
+        </div>
+        <div class="weui-cell__ft">
+            移除收录
+        </div>
+    </router-link>
+
+     <router-link :to="{ name: 'servicespread'}" class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+            <p>文章推荐</p>
+        </div>
+        <div class="weui-cell__ft">
+            互推
+        </div>
+    </router-link>
+
 </div>
 </template>
 
