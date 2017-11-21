@@ -79,7 +79,7 @@ export default {
 
     watch:{
       cate:function(){
-        // console.log(this.cate)
+        console.log("cate::",this.cate)
       },
       "$route": function(){
           this.cate = this.$route.params.id

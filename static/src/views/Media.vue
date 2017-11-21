@@ -7,15 +7,9 @@
 <div class="weui-panel weui-panel_access">
    <div class="weui-panel__hd">
     <span>
-      跟读微信文章
+      {{tag.Title}}
     </span>
     
-
-    <label for="weuiAgree" class="weui-agree">
-        
-              <router-link class="weui-agree__text" :to="{ name: 'tags'}">全部分类 </router-link>
-
-    </label>
   </div> 
 
   
@@ -44,7 +38,7 @@
 </style>
 <script>
 
-import ArticleList from '@/components/ArticleInfoList';
+import ArticleList from '@/components/ArticleList';
 import InfiniteLoading from 'vue-infinite-loading'
 import news from '../api/news.js';
 
@@ -59,21 +53,39 @@ export default {
     },
     data () {
       return {
+        id:0,
         cate: 0,
+        media: [],
+        tag: [],
       }
     },
     mounted() {
+      this.id = this.$route.params.id
+      this.getTagByMediaID()
     },
     methods: {
-
-       
-
+      getMedia:function(){
+        var site = this
+        news.getNew("/media/"+site.id,function(err,data){
+          site.media = data
+        })
+      },
+      getTagByMediaID:function(){
+        var site = this
+        news.getNew("/gettagbymedia/"+site.id,function(err,data){
+          site.tag = data
+          site.cate = data.ID
+        })
+      }
     },
 
 
     watch:{
       cate:function(){
-        console.log(this.cate)
+        console.log("media::",this.cate)
+      },
+      id:function(){
+        console.log(this.id)
       }
     }
 }
