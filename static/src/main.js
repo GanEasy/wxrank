@@ -3,6 +3,8 @@
 
 import 'weui/dist/style/weui.min.css'
 import 'swiper/dist/css/swiper.css'
+// import '../assets/icon/inonfont.css'
+// import '@assets/iconfont.css'
 
 import Vue from 'vue'
 import App from './App'
@@ -40,6 +42,7 @@ Vue.use(VueTimeago, {
 
 Vue.use(VueAxios, axios)
 Vue.use(VueLazyload)
+
 
 
 

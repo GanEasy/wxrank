@@ -24,6 +24,11 @@ import SVPostPage from '@/pages/service/Post'
 import SVDeletePage from '@/pages/service/Delete'
 import SVSpreadPage from '@/pages/service/spread'
 
+
+// 测试 
+
+import swiperPage from '@/views/Swiper'
+
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +45,11 @@ export default new Router({
             path:'/hot',
             name: 'hot',
             component:hotPage
+        },     
+        {
+            path:'/swiper',
+            name: 'swiper',
+            component:swiperPage
         },
         {
             path:'/new',
