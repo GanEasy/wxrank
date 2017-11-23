@@ -33,9 +33,8 @@
     </router-link>
 
 
-
+<!--
     <div class="weui-cells__title">用户反馈</div>
-
 
      <router-link :to="{ name: 'feedbackprivacy'}" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
@@ -66,6 +65,7 @@
         </div> 
         <div class="weui-cell__ft"></div>
     </router-link>
+    -->
     
     <div class="weui-cells__title">相关</div>
 

@@ -9,7 +9,7 @@
     <weui-textarea placeholder="" :value="text"></weui-textarea>
 
 
-    <div class="weui-cells__title">如需反馈，请留下联系方式</div>
+    <!-- <div class="weui-cells__title">如需反馈，请留下联系方式</div>
     <div class="weui-cells">
         <div class="weui-cell weui-cell_select weui-cell_select-before">
             <div class="weui-cell__hd">
@@ -28,16 +28,39 @@
         <span class="weui-agree__text">
             阅读并同意<a href="javascript:void(0);">《相关条款》</a>
         </span>
-    </label>
-
-    
+    </label> -->
+    <div class="weui-cells__title">满足任意条件可移除</div>
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>将移除已不存在的文章收录</p>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+        
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>将移除含<code>limit.readfollw.com</code>的文章收录</p>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+        
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>停止收录并移除含<code>ban.readfollw.com</code>的公众号所有文章</p>
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+        
+    </div>
+<!--     
     <div class="weui-cells__title">
-        <ul>
+        <ol>
             <li>将移除已不存在的文章收录</li>
             <li>将移除含<code>limit.readfollw.com</code>字符的文章收录</li>
             <li>移除并停止收录含<code>ban.readfollw.com</code>字符的公众号文章</li>
-        </ul>
-    </div>
+        </ol>
+    </div> -->
     <div class="weui-btn-area">
         <a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
     </div>

@@ -96,7 +96,7 @@
 </style>
 
 <script>
-import news from '../api/news.js';
+import api from '../api/api.js';
 
   export default {
 
@@ -118,7 +118,7 @@ import news from '../api/news.js';
     methods: {
         GetCate(){
           var site = this
-          news.get("/tags?type=cate",function(err,data){
+          api.get("/tags?type=cate",function(err,data){
             site.category = data
           })
         },

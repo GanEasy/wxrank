@@ -19,7 +19,7 @@
   </div> 
 
   
-  <ArticleList :cate="cate"></ArticleList>
+  <List :cate="cate"></List>
 
 </div>
 
@@ -44,7 +44,7 @@
 </style>
 <script>
 
-import ArticleList from '@/components/ArticleInfoList';
+import List from '@/components/List';
 import InfiniteLoading from 'vue-infinite-loading'
 import news from '../api/news.js';
 
@@ -55,7 +55,7 @@ export default {
   
     components: {
       InfiniteLoading,
-      ArticleList
+      List
     },
     data () {
       return {
