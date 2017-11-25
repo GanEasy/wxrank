@@ -154,9 +154,9 @@ export default {
 
         infiniteHandler: function ($state) {
 
-          if (this.articles.length > 50){
-            site.articles = [];
-          }
+          // if (this.articles.length > 50){
+          //   site.articles = [];
+          // }
 
           if (this.articles.length > 500) {
             $state.complete();
