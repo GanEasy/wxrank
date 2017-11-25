@@ -67,7 +67,7 @@
     width:30px;
     height: 30px;
     line-height: 30px;
-    bottom: 50px;
+    bottom: 10px;
     right: 30px;
     z-index: 10;
     position: fixed;
@@ -133,8 +133,9 @@ export default {
       }
     },
     mounted() {
-      this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
-      this.rank = parseFloat(window.localStorage.getItem("rank")) || 0
+      // this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
+      // this.rank = parseFloat(window.localStorage.getItem("rank")) || 0
+      // this.cate = parseInt(window.localStorage.getItem("cate")) || 0
       // alert(this.cate)
     },
     methods: {
@@ -188,8 +189,8 @@ export default {
 
     watch:{
       articles:function(){
-        localStorage.setItem("articles",JSON.stringify(this.articles))
-        localStorage.setItem("rank",this.rank)
+        // localStorage.setItem("articles",JSON.stringify(this.articles))
+        // localStorage.setItem("rank",this.rank)
       },
       cate:function(){
           var __cate = parseInt(window.localStorage.getItem("__cate")) || 0

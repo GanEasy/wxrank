@@ -55,22 +55,23 @@ Vue.use(VueAwesomeSwiper)
 //     alert("after");
 //     });
 
-    router.beforeEach((to, from, next) => {
+    // router.beforeEach((to, from, next) => {
 
-        var __to = localStorage.getItem("__to")||''
-        // to 和 from 都是 路由信息对象
+    //     var __to = localStorage.getItem("__to")||''
+    //     // to 和 from 都是 路由信息对象
         
-        // console.log(to.path ,from.path , __to ,to.path )
-        if(to.path != from.path && __to !=to.path ){
-          localStorage.removeItem("articles")
-          localStorage.removeItem("rank")
-        //   console.log("clear cache")
-        }
+    //     // console.log(to.path ,from.path , __to ,to.path )
+    //     if(to.path != from.path && __to !=to.path ){
+    //       localStorage.removeItem("articles")
+    //       localStorage.removeItem("rank")
+    //       localStorage.removeItem("cate")
+    //     //   console.log("clear cache")
+    //     }
         
-        localStorage.setItem("__to",to.path)
-        // console.log(to.path, from.path)
-        next()
-      })
+    //     localStorage.setItem("__to",to.path)
+    //     // console.log(to.path, from.path)
+    //     next()
+    //   })
 
 /* eslint-disable no-new */
 new Vue({

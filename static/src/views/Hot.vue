@@ -18,8 +18,9 @@
     </label>
   </div> -->
 
-  
-  <List :cate="cate"></List>
+  <keep-alive>
+    <List :cate="cate"></List>
+  </keep-alive>
 
 </div>
 
