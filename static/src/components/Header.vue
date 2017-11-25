@@ -1,44 +1,17 @@
 <template>
 
 <div>
-    <!-- <div class="weui-navbar">
-          <router-link class="weui-navbar__item"  to="/">文博</router-link>
-          <router-link class="weui-navbar__item"  to="/new">最新</router-link> 
-          <router-link class="weui-navbar__item" to="/post">分享</router-link>
-
-    </div> 
- -->
-      <!--  <div class="page__hd">
-        <h1 class="page__title">ReadFollow.com</h1>
-     <p class="page__desc">跟读微信文章</p> 
-    </div>
--->
-    <!--
-    <div class="weui-grids">
-
-    <a href="javascript:;" class="weui-grid">
-        <p class="weui-grid__label">
-            文博资讯
-        </p>
-    </a>
-    <a href="javascript:;" class="weui-grid">
-        <p class="weui-grid__label">
-            IT/互联
-        </p>
-    </a>
-    <a href="javascript:;" class="weui-grid">
-        <p class="weui-grid__label">
-            汽车频道
-        </p>
-    </a>
-  </div>
-  -->
-
     <div class="weui-panel__hd hd_no_boder">
 
         <div class="weui-flex navber">
           <router-link class="weui-flex__item"  :to="{ name: 'hot'}">
             热门
+          </router-link>
+          <router-link class="weui-flex__item"  :to="{ name: 'hot'}">
+            教育
+          </router-link>
+          <router-link class="weui-flex__item"  :to="{ name: 'hot'}">
+            美食
           </router-link>
           <router-link class="weui-flex__item" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in category" :key="cate.ID">
              {{cate.Title}}
@@ -48,6 +21,15 @@
           </router-link> -->
         </div>
     </div>
+    <!-- <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__bd">
+                    <p>cell standard</p>
+                </div>
+                <div class="weui-cell__ft">说明文字</div>
+            </a>
+
+        </div> -->
 </div>
 </template>
 <style>
@@ -112,7 +94,14 @@ import api from '../api/api.js';
     data () {
       return {
         tags: [],
-        category: []
+        category: [],
+         swiperOption2: {
+          pagination: '.swiper-pagination',
+          slidesPerView: 6,
+          initialSlide: 6,
+          paginationClickable: true,
+          spaceBetween: 0
+        }
       }
     },
     methods: {

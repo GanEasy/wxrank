@@ -11,10 +11,10 @@
 
 
   <div class="weui-panel__bd">
-     <div v-for="article in articles" :key="article.id">
+    
          
-      <ListItem :article="article"></ListItem>
-    </div> 
+      <ListItem :article="article"  v-for="article in articles" :key="article.id"></ListItem>
+    
   </div>
   
     <infinite-loading @infinite="infiniteHandler" :distance="distance" ref="infiniteLoading">
@@ -152,6 +152,10 @@ export default {
         },
 
         infiniteHandler: function ($state) {
+
+          if (this.articles.length > 50){
+            site.articles = [];
+          }
 
           if (this.articles.length > 500) {
             $state.complete();
