@@ -38,9 +38,9 @@
     text-align: center;
     color: #cfcfcf;
 }
-.weui-toast{
+/* .weui-toast{
     background: none;
-}
+} */
 </style>
 <script>
 
