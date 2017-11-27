@@ -4,7 +4,7 @@
 <div>
 
 
-<div class="weui-panel weui-panel_access">
+<div class="weui-panel_access">
    <!--<div class="weui-panel__hd">
     <span>
       跟读微信文章
@@ -18,9 +18,8 @@
     </label>
   </div> -->
 
-  <keep-alive>
-    <List :cate="cate"></List>
-  </keep-alive>
+  
+  <List :cate="cate"></List>
 
 </div>
 
@@ -39,9 +38,9 @@
     text-align: center;
     color: #cfcfcf;
 }
-.weui-toast{
+/* .weui-toast{
     background: none;
-}
+} */
 </style>
 <script>
 

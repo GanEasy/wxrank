@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import homePage from '@/views/Home'
+// import homePage from '@/views/Home'
 import hotPage from '@/views/Hot'
 import CatePage from '@/views/Cate' // 进入某个分类
 // import HelloWorld from '@/components/HelloWorld'
@@ -27,7 +27,7 @@ import CatePage from '@/views/Cate' // 进入某个分类
 
 // 测试 
 
-import swiperPage from '@/views/Swiper'
+// import swiperPage from '@/views/Swiper'
 
 Vue.use(Router)
 
@@ -47,7 +47,7 @@ export default new Router({
             component:hotPage
         }, 
         {
-            path:'/cate/:id', 
+            path:'/t/:id', 
             name: 'cate',
             component:CatePage
         },      

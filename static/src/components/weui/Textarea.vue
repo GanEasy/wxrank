@@ -15,7 +15,7 @@
       placeholder: String,
       showCounter: {
         type: Boolean,
-        default: true
+        default: false
       },
       rows: {
         type: [Number, String],

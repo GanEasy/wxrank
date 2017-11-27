@@ -67,7 +67,7 @@
     width:30px;
     height: 30px;
     line-height: 30px;
-    bottom: 10px;
+    bottom: 50px;
     right: 30px;
     z-index: 10;
     position: fixed;
@@ -130,12 +130,12 @@ export default {
         page:0,
         showload:false,
         rank:0, // 当前下拉文章最低rank
+        loading:false,
       }
     },
     mounted() {
-      // this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
-      // this.rank = parseFloat(window.localStorage.getItem("rank")) || 0
-      // this.cate = parseInt(window.localStorage.getItem("cate")) || 0
+      this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
+      this.rank = parseFloat(window.localStorage.getItem("rank")) || 0
       // alert(this.cate)
     },
     methods: {
@@ -154,19 +154,14 @@ export default {
 
         infiniteHandler: function ($state) {
 
-          // if (this.articles.length > 50){
-          //   site.articles = [];
-          // }
-
-          if (this.articles.length > 500) {
-            $state.complete();
-            // console.log("dont...");
-          } else {
-              var site = this
-
-              var uri = '/hot?limit=10&rank='+site.rank+'&tag='+this.cate;
-
-              setTimeout(function(){
+          var site = this
+          if (!site.loading){
+            site.loading =true
+            if (site.articles.length > 500) {
+              $state.complete();
+              site.loading = false
+            } else {
+                var uri = '/hot?limit=10&rank='+site.rank+'&tag='+site.cate;
                 api.get(uri,function(err,data){
                   if(data.length>0){
                     for(var t=0;t<data.length;t++){
@@ -175,12 +170,13 @@ export default {
                     site.rank = data[(data.length-1)].Rank
                     $state.loaded();
                     site.page ++
+                    site.loading = false
                   }else{
                     $state.complete();
+                    site.loading = false
                   }
                 })
-              }, 200);
-            // }.bind(this), 1000);
+            }
           }
         },
 
@@ -189,8 +185,8 @@ export default {
 
     watch:{
       articles:function(){
-        // localStorage.setItem("articles",JSON.stringify(this.articles))
-        // localStorage.setItem("rank",this.rank)
+        localStorage.setItem("articles",JSON.stringify(this.articles))
+        localStorage.setItem("rank",this.rank)
       },
       cate:function(){
           var __cate = parseInt(window.localStorage.getItem("__cate")) || 0

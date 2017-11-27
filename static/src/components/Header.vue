@@ -7,12 +7,11 @@
           <router-link class="weui-flex__item"  :to="{ name: 'hot'}">
             热门
           </router-link>
-        
           <router-link class="weui-flex__item" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in category" :key="cate.ID">
              {{cate.Title}}
           </router-link>
-          <!-- <router-link class="weui-flex__item"  :to="{ name: 'about'}">
-            关于
+          <!-- <router-link class="weui-flex__item"  :to="{ name: 'servicepost'}">
+            Share
           </router-link> -->
         </div>
     </div>
