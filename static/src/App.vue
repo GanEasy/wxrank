@@ -52,7 +52,7 @@ const wx = require('weixin-js-sdk')
 import api from './api/api.js';
 
 
- api.get("/jssdk?url=http://readfollow.com/t/1",function(err,data){
+ api.get("/jssdk?url=http://readfollow.com/hot",function(err,data){
     wx.config({
       debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
       appId: "wx702b93aef72f3549", // 必填，公众号的唯一标识
@@ -67,17 +67,16 @@ import api from './api/api.js';
         wx.checkJsApi({jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage']});
         wx.onMenuShareTimeline({
             title: '文博微讯',
-            link: "http://readfollow.com",
+            link: "http://readfollow.com/hot",
             imgUrl: 'http://readfollow.com/logo.png'
         });
         wx.onMenuShareAppMessage({
             title: '文博微讯',
-            desc: '这里有您想了解的文博微信文章',
-            link: "http://readfollow.com",
+            desc: '只需一分钟，读完100+公众号最新文章...',
+            link: "http://readfollow.com/hot",
             imgUrl: 'http://readfollow.com/logo.png'
         })
     })
-
   })
 
 // import BackTop from '@/components/BackTop'
