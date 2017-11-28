@@ -22,7 +22,7 @@ import VueLazyload from 'vue-lazyload'
 import VueTimeago from 'vue-timeago'
 
 
-var VueAwesomeSwiper = require('vue-awesome-swiper')
+// var VueAwesomeSwiper = require('vue-awesome-swiper')
 
 import VmBackTop from 'vue-multiple-back-top'
 
@@ -49,7 +49,7 @@ Vue.use(VueLazyload)
 Vue.component(VmBackTop.name, VmBackTop)
 
 // mount with global
-Vue.use(VueAwesomeSwiper)
+// Vue.use(VueAwesomeSwiper)
 
 // router.afterEach(function () {
 //     alert("after");

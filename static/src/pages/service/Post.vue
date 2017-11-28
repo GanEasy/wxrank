@@ -11,6 +11,16 @@
         </div>
     </div>
 </div>
+<div  v-if="showWarn">
+    <div class="weui-mask"></div>
+    <div class="weui-dialog">
+        <div class="weui-dialog__hd"><strong class="weui-dialog__title">分享失败</strong></div>
+        <div class="weui-dialog__bd">请检查分享的链接是否正常</div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" v-on:click="showSuccess = false" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+        </div>
+    </div>
+</div>
 
 <form @submit.prevent="submit">
     <div class="weui-cells__title">自助服务 > 分享公众号文章</div>
@@ -33,7 +43,7 @@ import WeuiTextarea from '@/components/weui/Textarea';
         return{
            url:"",
            showSuccess:false,
-           posting:false,
+           showWarn:false,
         }
     },
     methods: {
@@ -43,7 +53,6 @@ import WeuiTextarea from '@/components/weui/Textarea';
             setTimeout(function(){
               site.posting = false
             }, 200);
-                      site.showSuccess = true
 
             site.posting = true
               news.post(site.url,function(err,data){
@@ -56,6 +65,8 @@ import WeuiTextarea from '@/components/weui/Textarea';
                     site.url = ''
                 }
               });
+          }else{
+            site.showWarn = true
           }
         }
     },

@@ -45,13 +45,14 @@
 <script>
 
 /**
+ */
  // 微信公众平台分享 (目前没有权限)
 const wx = require('weixin-js-sdk')
 
-import api from './api/index.js';
+import api from './api/api.js';
 
 
- api.getJsSDK(api,function(err,data){
+ api.get("/jssdk?url=http://readfollow.com/t/1",function(err,data){
     wx.config({
       debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
       appId: "wx702b93aef72f3549", // 必填，公众号的唯一标识
@@ -66,19 +67,18 @@ import api from './api/index.js';
         wx.checkJsApi({jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage']});
         wx.onMenuShareTimeline({
             title: '文博微讯',
-            link: "http://wb.readfollow.com",
-            imgUrl: 'http://wb.readfollow.com/file/images/wxsharelogo.jpg'
+            link: "http://readfollow.com",
+            imgUrl: 'http://readfollow.com/logo.png'
         });
         wx.onMenuShareAppMessage({
             title: '文博微讯',
             desc: '这里有您想了解的文博微信文章',
-            link: "http://wb.readfollow.com",
-            imgUrl: 'http://wb.readfollow.com/file/images/wxsharelogo.jpg'
+            link: "http://readfollow.com",
+            imgUrl: 'http://readfollow.com/logo.png'
         })
     })
 
   })
- */
 
 // import BackTop from '@/components/BackTop'
 import HeaderTab from '@/components/Header';

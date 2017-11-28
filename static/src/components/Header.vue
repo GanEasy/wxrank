@@ -10,9 +10,9 @@
           <router-link class="weui-flex__item" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in category" :key="cate.ID">
              {{cate.Title}}
           </router-link>
-          <router-link class="weui-flex__item"  :to="{ name: 'servicepost'}">
+          <!-- <router-link class="weui-flex__item"  :to="{ name: 'servicepost'}">
             Share
-          </router-link>
+          </router-link> -->
         </div>
     </div>
     <!-- <div class="weui-cells">
