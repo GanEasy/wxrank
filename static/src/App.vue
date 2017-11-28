@@ -54,7 +54,7 @@ import api from './api/api.js';
 
  api.get("/jssdk?url=http://readfollow.com/hot",function(err,data){
     wx.config({
-      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+      debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
       appId: "wx702b93aef72f3549", // 必填，公众号的唯一标识
       timestamp: data.timestamp, // 必填，生成签名的时间戳
       nonceStr: data.nonceStr, // 必填，生成签名的随机串
@@ -66,12 +66,12 @@ import api from './api/api.js';
     wx.ready(function () {
         wx.checkJsApi({jsApiList: ['checkJsApi', 'onMenuShareTimeline', 'onMenuShareAppMessage']});
         wx.onMenuShareTimeline({
-            title: '文博微讯',
+            title: '跟读，优质微信文章聚合平台',
             link: "http://readfollow.com/hot",
             imgUrl: 'http://readfollow.com/logo.png'
         });
         wx.onMenuShareAppMessage({
-            title: '文博微讯',
+            title: '跟读，优质微信文章聚合平台',
             desc: '只需一分钟，读完100+公众号最新文章...',
             link: "http://readfollow.com/hot",
             imgUrl: 'http://readfollow.com/logo.png'
