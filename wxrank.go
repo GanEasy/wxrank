@@ -5,6 +5,7 @@ import "github.com/labstack/echo"
 func main() {
 	e := echo.New()
 	e.File("favicon.ico", "images/favicon.ico")
+	e.File("logo.png", "images/80x80logo.png")
 	e.File("/", "static/dist/index.html")
 	e.File("/cate/:id", "static/dist/index.html")
 	e.File("/tags", "static/dist/index.html")
