@@ -1,10 +1,7 @@
 
 import axios from 'axios'
 
-// axios.defaults.baseURL = 'http://wb.readfollow.com';
-axios.defaults.baseURL = 'http://api.readfollow.com';
-// axios.defaults.baseURL = 'http://localhost:8005';
-// axios.defaults.baseURL = '/api';
+axios.defaults.baseURL = process.env.API_ROOT
 
 export default {
   get(data, callback){
