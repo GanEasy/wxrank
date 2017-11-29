@@ -52,7 +52,7 @@
 <script>
 
 import InfiniteLoading from 'vue-infinite-loading'
-import news from '../api/news.js';
+import api from '../api';
 
 export default {
   
@@ -77,7 +77,7 @@ export default {
     methods: {
         GetCate:function(){
           var site = this
-          news.getNew("/tags?type=cate",function(err,data){
+          api.get("/tags?type=cate",function(err,data){
             site.category = data
           })
         },

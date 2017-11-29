@@ -49,7 +49,7 @@
  // 微信公众平台分享 (目前没有权限)
 const wx = require('weixin-js-sdk')
 
-import api from './api/api.js';
+import api from './api';
 
 
  api.get("/jssdk?url=http://readfollow.com/hot",function(err,data){
@@ -71,8 +71,8 @@ import api from './api/api.js';
             imgUrl: 'http://readfollow.com/logo.png'
         });
         wx.onMenuShareAppMessage({
-            title: '跟读，优质微信文章聚合平台',
-            desc: '只需一分钟，读完100+公众号最新文章...',
+            title: '跟读，微信优质文章聚合平台',
+            desc: '在这里阅读优质的微信文章，能节省了很多翻看订阅号的时间。',
             link: "http://readfollow.com/hot",
             imgUrl: 'http://readfollow.com/logo.png'
         })

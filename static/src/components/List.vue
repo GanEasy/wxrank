@@ -102,8 +102,9 @@ margin-top: 10px
 <script>
 
 import InfiniteLoading from 'vue-infinite-loading'
-import api from '../api/api.js';
+// import api from '../api/api.js';
 import ListItem from './ListItem';
+import api from '../api';
 
 export default {
   
@@ -130,6 +131,7 @@ export default {
         page:0,
         showload:false,
         rank:0, // 当前下拉文章最低rank
+        loading:false,
       }
     },
     mounted() {
@@ -152,30 +154,27 @@ export default {
         },
 
         infiniteHandler: function ($state) {
-
-          if (this.articles.length > 500) {
-            $state.complete();
-            // console.log("dont...");
-          } else {
-              var site = this
-
+          var site = this
+          if(!site.loading){
+            if (this.articles.length > 500) {
+              $state.complete();
+            } else {
+              /** load data start */
+              site.loading = true
               var uri = '/hot?limit=10&rank='+site.rank+'&tag='+this.cate;
-
-              setTimeout(function(){
-                api.get(uri,function(err,data){
-                  if(data.length>0){
-                    for(var t=0;t<data.length;t++){
-                      site.articles.push(data[t])
-                    }
-                    site.rank = data[(data.length-1)].Rank
-                    $state.loaded();
-                    site.page ++
-                  }else{
-                    $state.complete();
+              api.get(uri,function(err,data){
+                if(data.length>0){
+                  for(var t=0;t<data.length;t++){
+                    site.articles.push(data[t])
                   }
-                })
-              }, 200);
-            // }.bind(this), 1000);
+                  site.rank = data[(data.length-1)].Rank
+                  $state.loaded();
+                  site.page ++
+                }else{$state.complete();}
+                site.loading = false // 加载完成
+              })
+              /** load data end */
+            }
           }
         },
 

@@ -45,7 +45,7 @@
 
 import List from '@/components/List';
 import InfiniteLoading from 'vue-infinite-loading'
-import news from '../api/news.js';
+import api from '../api';
 
 export default {
   
@@ -70,7 +70,7 @@ export default {
     methods: {
       GetTagInfo:function(){
           var site = this
-          news.getNew("/tag/"+site.cate,function(err,data){
+          api.get("/tag/"+site.cate,function(err,data){
             site.tag = data
           })
       }

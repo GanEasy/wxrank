@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import news from '../../api/news.js';
+import api from '../../api';
 
   export default {
     name: 'app',
@@ -48,7 +48,7 @@ import news from '../../api/news.js';
     methods: {
        submit: function(event) {
             
-              news.post(this.url,function(err,data){
+              api.post(this.url,function(err,data){
                 if(data == "0"){
                   alert("收录失败")
                 }else{

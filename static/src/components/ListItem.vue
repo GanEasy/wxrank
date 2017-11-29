@@ -41,7 +41,6 @@
 </style>
 <script>
 
-import api from '../api/api.js';
 
 export default {
   
@@ -62,7 +61,7 @@ export default {
         like:function(article){
           var site = this
           site.showload = true
-          news.get('/like/'+article.ID,function(err,data){
+          api.get('/like/'+article.ID,function(err,data){
             article.Like = data.Like
             site.showload = false
           })
@@ -70,7 +69,7 @@ export default {
         hate:function(article){
           var site = this
           site.showload = true
-          news.get('/hate/'+article.ID,function(err,data){
+          api.get('/hate/'+article.ID,function(err,data){
             article.Hate = data.Hate     
             site.showload = false
           }) 

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import news from '../../api/news.js';
+import api from '../../api';
 import WeuiTextarea from '@/components/weui/Textarea';
 
   export default {
@@ -55,7 +55,7 @@ import WeuiTextarea from '@/components/weui/Textarea';
             }, 200);
 
             site.posting = true
-              news.post(site.url,function(err,data){
+              api.post(site.url,function(err,data){
                 if(data == "0"){
                   alert('提交失败')
                 }else{

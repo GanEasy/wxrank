@@ -46,7 +46,6 @@
 
 import List from '@/components/List';
 import InfiniteLoading from 'vue-infinite-loading'
-import news from '../api/news.js';
 
 export default {
   
