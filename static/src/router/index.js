@@ -70,7 +70,7 @@ export default new Router({
         //     component:TagPage
         // },
         // {
-        //     path:'/m/:id',
+        //     path:'/p/:id',
         //     name: 'media',
         //     component:mediaPage
         // },

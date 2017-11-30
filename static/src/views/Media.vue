@@ -1,19 +1,22 @@
-//List.vue 列表
+//index.vue
 <template>
+
 <div>
 
-  <div id="loadingToast" v-if="showload">
-      <div class="weui-mask_transparent"></div>
-      <div class="weui-toast">
-      <i class="weui-loading weui-icon_toast"></i>
-      </div>
-  </div>
 
-
+<div class=" weui-panel_access">
+   <!-- 
+   <div class="weui-panel__hd">
+    <span>
+      {{tag.Title}}
+    </span>
+    专栏
+  </div>  -->
+  
   <div class="weui-panel__bd">
     
          
-      <ListItem :article="article"  v-for="article in articles" :key="article.id"></ListItem>
+  <MediaListItem :article="article"  v-for="article in articles" :key="article.id"></MediaListItem>
     
   </div>
   
@@ -24,11 +27,11 @@
     </div>
 
     <div slot="no-results" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">加载不出内容!</span>
+      <span class="weui-loadmore__tips">暂无数据!</span>
     </div>
 
     <div slot="no-more" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">到底了!</span>
+      <span class="weui-loadmore__tips">无法加载更多数据!</span>
     </div>
 
 
@@ -49,99 +52,65 @@
       <!--</router-link>
     </div>  -->
 
+</div>
+
 
 </div>
 
 
 </template>
 <style>
-  .menu {
-    min-width: 100px;
-    width: 70%;
-    max-width: 320px;
-  }
-  .content {
-    width: 100%;
-  }
-.refresh{
-    width:30px;
-    height: 30px;
-    line-height: 30px;
-    bottom: 50px;
-    right: 30px;
-    z-index: 10;
-    position: fixed;
-    cursor: pointer;
+ .placeholder {
+    margin: 5px;
+    padding: 0 10px;
+    background-color: #ebebeb;
+    height: 2.3em;
+    line-height: 2.3em;
+    text-align: center;
+    color: #cfcfcf;
 }
-.category{
-    width:30px;
-    height: 30px;
-    line-height: 30px;
-    bottom: 10px;
-    right: 30px;
-    z-index: 10;
-    position: fixed;
-    cursor: pointer;
-} 
-.article-title{
-  
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    font-size: 15px;
-    color: #000;
-
-}
-.article-tags{
-margin-top: 10px
+.weui-toast{
+    background: none;
 }
 </style>
 <script>
 
+import MediaList from '@/components/MediaList';
+import MediaListItem from '@/components/MediaListItem';
 import InfiniteLoading from 'vue-infinite-loading'
-// import api from '../api/api.js';
-import ListItem from './ListItem';
 import api from '../api';
 
 export default {
   
-  name: 'ArticleList',
+  name: 'indexP',
   
   
     components: {
       InfiniteLoading,
-      ListItem
+      MediaList,
+      MediaListItem
     },
-
-    props: ['cate'],
-
     data () {
       return {
-        // swiperOption: {
-        //   slidesPerView: 'auto',
-        //   initialSlide: 0,
-        //   resistanceRatio: .00000000000001,
-        //   slideToClickedSlide: true
-        // },
+        id:0,
+        cate: 0,
+        media: [],
+        tag: [],
         articles: [],
         distance: 200,
         page:0,
         showload:false,
         rank:0, // 当前下拉文章最低rank
         loading:false,
+
       }
     },
     mounted() {
-      this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
-      this.rank = parseFloat(window.localStorage.getItem("rank")) || 0
-      // alert(this.cate)
+      this.id = this.$route.params.id
+      this.getTagByMediaID()
     },
     methods: {
-
-
+      
 
         refresh:function(){
           var site = this
@@ -155,52 +124,44 @@ export default {
 
         infiniteHandler: function ($state) {
           var site = this
-          if(!site.loading){
+          
+          if(!site.loading && this.cate>0){
             if (this.articles.length > 500) {
               $state.complete();
             } else {
               /** load data start */
-              setTimeout(function(){
-                site.loading = true
-                var uri = '/hot?limit=10&rank='+site.rank+'&tag='+site.cate;
-                api.get(uri,function(err,data){
-                  if(data && data.length>0){
-                    for(var t=0;t<data.length;t++){
-                      site.articles.push(data[t])
-                    }
-                    site.rank = data[(data.length-1)].Rank
-                    $state.loaded();
-                    site.page ++
-                  }else{
-                    $state.complete();
+              site.loading = true
+              var uri = '/hot?limit=10&rank='+site.rank+'&tag='+this.cate;
+              api.get(uri,function(err,data){
+                if(data.length>0){
+                  for(var t=0;t<data.length;t++){
+                    site.articles.push(data[t])
                   }
-                  site.loading = false // 加载完成
-                })
-              }, 200);
+                  site.rank = data[(data.length-1)].Rank
+                  $state.loaded();
+                  site.page ++
+                }else{$state.complete();}
+                site.loading = false // 加载完成
+              })
               /** load data end */
             }
           }
         },
-
-    },
-
-
-    watch:{
-      articles:function(){
-        localStorage.setItem("articles",JSON.stringify(this.articles))
-        localStorage.setItem("rank",this.rank)
+      getMedia:function(){
+        var site = this
+        api.get("/media/"+site.id,function(err,data){
+          site.media = data
+        })
       },
-      cate:function(){
-          var __cate = parseInt(window.localStorage.getItem("__cate")) || 0
-          // console.log(__cate,this.cate)
-          if( __cate!=parseInt(this.cate) ){
-            localStorage.setItem("__cate",this.cate)
-            // console.log('refresh...',this.cate)
-            this.refresh()
-          }
-
+      getTagByMediaID:function(){
+        var site = this
+        api.get("/gettagbymedia/"+site.id,function(err,data){
+          site.tag = data
+          site.cate = data.ID
+        })
       }
-    }
+    },
+    
 }
 </script>
 

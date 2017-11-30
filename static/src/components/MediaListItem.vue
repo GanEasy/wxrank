@@ -29,8 +29,11 @@
             <ul class="weui-media-box__info article-tags">
               
               <li class="weui-media-box__info__meta">
-                <router-link  :to="{ name: 'cate', params: { id: article.MediaTagID }}" style="color: #cecece">{{article.MediaTagTitle}}</router-link>
-                <!-- {{article.Media.AppName}} -->
+                {{article.Media.AppName}}
+              </li> 
+              
+              <li class="weui-media-box__info__meta">
+                {{article.Author}}
               </li> 
               
 
@@ -67,7 +70,7 @@ import api from '../api';
 
 export default {
   
-  name: 'ListItem',
+  name: 'MediaListItem',
 
 
     props: ['article'],

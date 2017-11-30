@@ -13,7 +13,7 @@
   <div class="weui-panel__bd">
     
          
-      <ListItem :article="article"  v-for="article in articles" :key="article.id"></ListItem>
+      <MediaListItem :article="article"  v-for="article in articles" :key="article.id"></MediaListItem>
     
   </div>
   
@@ -24,11 +24,11 @@
     </div>
 
     <div slot="no-results" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">加载不出内容!</span>
+      <span class="weui-loadmore__tips">暂无数据!</span>
     </div>
 
     <div slot="no-more" class="weui-loadmore weui-loadmore_line">
-      <span class="weui-loadmore__tips">到底了!</span>
+      <span class="weui-loadmore__tips">无法加载更多数据!</span>
     </div>
 
 
@@ -103,17 +103,17 @@ margin-top: 10px
 
 import InfiniteLoading from 'vue-infinite-loading'
 // import api from '../api/api.js';
-import ListItem from './ListItem';
+import MediaListItem from './MediaListItem';
 import api from '../api';
 
 export default {
   
-  name: 'ArticleList',
+    name: 'ArticleList',
   
   
     components: {
       InfiniteLoading,
-      ListItem
+      MediaListItem
     },
 
     props: ['cate'],
@@ -135,9 +135,7 @@ export default {
       }
     },
     mounted() {
-      this.articles = JSON.parse(window.localStorage.getItem("articles"))||[]
-      this.rank = parseFloat(window.localStorage.getItem("rank")) || 0
-      // alert(this.cate)
+
     },
     methods: {
 
@@ -160,23 +158,19 @@ export default {
               $state.complete();
             } else {
               /** load data start */
-              setTimeout(function(){
-                site.loading = true
-                var uri = '/hot?limit=10&rank='+site.rank+'&tag='+site.cate;
-                api.get(uri,function(err,data){
-                  if(data && data.length>0){
-                    for(var t=0;t<data.length;t++){
-                      site.articles.push(data[t])
-                    }
-                    site.rank = data[(data.length-1)].Rank
-                    $state.loaded();
-                    site.page ++
-                  }else{
-                    $state.complete();
+              site.loading = true
+              var uri = '/hot?limit=10&rank='+site.rank+'&tag='+this.cate;
+              api.get(uri,function(err,data){
+                if(data.length>0){
+                  for(var t=0;t<data.length;t++){
+                    site.articles.push(data[t])
                   }
-                  site.loading = false // 加载完成
-                })
-              }, 200);
+                  site.rank = data[(data.length-1)].Rank
+                  $state.loaded();
+                  site.page ++
+                }else{$state.complete();}
+                site.loading = false // 加载完成
+              })
               /** load data end */
             }
           }
@@ -185,22 +179,13 @@ export default {
     },
 
 
-    watch:{
-      articles:function(){
-        localStorage.setItem("articles",JSON.stringify(this.articles))
-        localStorage.setItem("rank",this.rank)
-      },
-      cate:function(){
-          var __cate = parseInt(window.localStorage.getItem("__cate")) || 0
-          // console.log(__cate,this.cate)
-          if( __cate!=parseInt(this.cate) ){
-            localStorage.setItem("__cate",this.cate)
-            // console.log('refresh...',this.cate)
-            this.refresh()
-          }
-
-      }
-    }
+    // watch:{
+    //   cate:function(){
+    //       if( this.cate>0 ){
+    //         this.refresh()
+    //       }
+    //   }
+    // }
 }
 </script>
 
