@@ -57,6 +57,8 @@
 
 .weui-media-box_appmsg .weui-media-box__hd{
       width: 80px;
+      margin-left:0;
+      margin-right:0;
 }
 .weui-navbar__item {
     position: relative;

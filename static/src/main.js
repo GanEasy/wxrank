@@ -44,7 +44,18 @@ Vue.use(VueTimeago, {
     locale: 'zh-CN',
     locales: {
         // you will need json-loader in webpack 1
-        'zh-CN': require('vue-timeago/locales/zh-CN.json')
+        // 'zh-CN': require('vue-timeago/locales/zh-CN.json')
+        // 自定义时间格式
+        'zh-CN':[
+            "",
+            "",
+            "",
+            "%sh",
+            "%sd",
+            "%sw",
+            "%sm",
+            "%sy"
+            ]
     }
 })
 
