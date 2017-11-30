@@ -3,14 +3,10 @@
 
 
       <div class="weui-media-box weui-media-box_appmsg" >
-          <div class="weui-media-box__bd">
-            <a :href="article.URL"><p class="weui-media-box__desc article-title">{{article.Title}}</p></a>
-            <ul class="weui-media-box__info article-tags">
-              <li class="weui-media-box__info__meta">{{article.Media.AppName}}</li> 
-              
-              <li class="weui-media-box__info__meta"><timeago :since="article.PubAt" class="text-muted" locale="zh-CN"></timeago></li>
-            </ul>
-          </div>
+
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb"   v-lazy="article.Cover" >
+          </div>  
           <div style="width:30px">
             <ul class="weui-media-box__info article-tags">
               <li class="weui-media-box__info__meta"><span v-on:click="like(article)">
@@ -27,10 +23,15 @@
                 </span>
               </li>
             </ul>
-          </div> 
-          <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb"   v-lazy="article.Cover" >
-          </div>  
+          </div>          
+           <div class="weui-media-box__bd">
+            <a :href="article.URL"><p class="weui-media-box__desc article-title">{{article.Title}}</p></a>
+            <ul class="weui-media-box__info article-tags">
+              <li class="weui-media-box__info__meta">{{article.Media.AppName}}</li> 
+              
+              <li class="weui-media-box__info__meta"><timeago :since="article.PubAt" class="text-muted" locale="zh-CN"></timeago></li>
+            </ul>
+          </div>
       </div>
 
        
