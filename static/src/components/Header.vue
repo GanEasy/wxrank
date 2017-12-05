@@ -52,7 +52,7 @@
 </template>
 <style>
 .nav-grids .weui-grid{
-  width:20%;
+  width:16.66%;
   border: none;
   padding: 10px 10px;
 }
@@ -92,7 +92,7 @@ import api from '../api';
         tag: [],
         tags: [],
         category: [],
-        listCount:3,
+        listCount:4,
         selectCategoryInShowList:false,
         showCategory: [],
         hideCategory: [],
