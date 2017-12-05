@@ -1,21 +1,23 @@
 <template>
 
 <div>
-    <div class="weui-panel__hd hd_no_boder">
+    <!-- <div class="weui-panel__hd hd_no_boder">
 
         <div class="weui-flex navber">
           <router-link class="weui-flex__item"  :to="{ name: 'hot'}">
             热门
           </router-link>
-          <router-link class="weui-flex__item" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in category" :key="cate.ID">
+          <router-link class="weui-flex__item" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in showCategory" :key="cate.ID">
              {{cate.Title}}
           </router-link>
-          <!-- <router-link class="weui-flex__item"  :to="{ name: 'servicepost'}">
-            Share
-          </router-link> -->
         </div>
     </div>
-    <!-- <div class="weui-cells">
+    <div class="weui-grids">
+        <router-link class="weui-grid"  :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in hideCategory" :key="cate.ID">
+            <p class="weui-grid__label">{{cate.Title}}</p>
+        </router-link>
+    </div>
+    <div class="weui-cells">
             <a class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__bd">
                     <p>cell standard</p>
@@ -24,52 +26,50 @@
             </a>
 
         </div> -->
+
+
+    <div class="weui-grids nav-grids">
+          <router-link class="weui-grid"  :to="{ name: 'hot'}">
+            <p class="weui-grid__label">热门</p>
+          </router-link>
+          <router-link class="weui-grid" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in showCategory" :key="cate.ID">
+              <p class="weui-grid__label">{{cate.Title}}</p>
+          </router-link>
+        <template v-if="hideCategory.length>0">
+          <div class="weui-grid" v-on:click="showHideCategoryStatus = !showHideCategoryStatus" >
+             <p class="weui-grid__label">{{showHideCategoryStatus?'收起':'更多'}}</p>
+          </div>
+        </template>
+        <template v-if="showHideCategoryStatus">
+          <router-link class="weui-grid" :to="{ name: 'cate', params: { id: cate.ID }}" v-for="cate in hideCategory" :key="cate.ID">
+              <p class="weui-grid__label">{{cate.Title}}</p>
+          </router-link>
+        </template>
+    </div>
+
+
 </div>
 </template>
 <style>
+.nav-grids .weui-grid{
+  width:20%;
+  border: none;
+  padding: 10px 10px;
+}
+.nav-grids .weui-grid:before{
+  
+  border: none;
+}
+.nav-grids:before{
+  border: none;
+}
 
-.navber{
-    text-align: center;
+.nav-grids .weui-grid:after {
+   border: none;
 }
-.weui-panel__hd:after{
-    border: none;
-}
-
-.navber a{
-    color: #999
-}
-.router-link-active{
+.router-link-active .weui-grid__label{
     font-weight: bold;  
-}
-.navber .router-link-active{
     color: #00a06a;
-    font-weight: bold;  
-}
-
-.page__hd {
-    padding: 40px;
-}
-.weui-navbar__item.weui-bar__item_on{
-  background-color:white;
-  color: red;
-}
-
-
-.weui-media-box_appmsg .weui-media-box__hd{
-      width: 80px;
-      margin-left:0;
-      margin-right:0;
-}
-.weui-navbar__item {
-    position: relative;
-    display: block;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-    padding: 13px 0;
-    text-align: center;
-    font-size: 15px;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 </style>
 
@@ -89,9 +89,15 @@ import api from '../api';
     },  
     data () {
       return {
+        tag: [],
         tags: [],
         category: [],
-         swiperOption2: {
+        listCount:3,
+        selectCategoryInShowList:false,
+        showCategory: [],
+        hideCategory: [],
+        showHideCategoryStatus:false,
+        swiperOption2: {
           pagination: '.swiper-pagination',
           slidesPerView: 6,
           initialSlide: 6,
@@ -105,10 +111,29 @@ import api from '../api';
           var site = this
           api.get("/tags?type=cate",function(err,data){
             site.category = data
+            site.manageCategory()
+            console.log(data)
+            console.log(site.$route.name)
+            console.log(site.$route.params.id)
           })
         },
       back () {
         this.$router.push(this.backTo)
+      },
+      manageCategory(){
+        var category = this.category
+        var routeName = this.$route.name
+        if(routeName == 'cate'){
+          var id = this.$route.params.id
+        }
+        for(var i=0;i<category.length;i++){
+          if(i<this.listCount){
+            this.showCategory.push(category[i])
+          }else{
+            this.hideCategory.push(category[i])
+          }
+        }
+        console.log('data', category,this.showCategory, this.hideCategory)
       }
     },
         

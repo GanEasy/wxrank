@@ -12,8 +12,6 @@
     <!-- <div class="weui-footer">
         <p class="weui-footer__text">粤ICP备17094378号-1</p>
     </div> -->
-     <!-- <quick-menu :menu-count="count" :icon-class="icons" :menu-url-list="list" :background-color="backgroundColor" :color="color" :position="position"></quick-menu>     -->
-
   </div>
 </template>
 <style>
@@ -83,36 +81,11 @@
 
 // import BackTop from '@/components/BackTop'
 import HeaderTab from '@/components/Header';
-import QuickMenu from '@/components/QuickMenu';
 export default {
   name: 'app',
   components:{
     HeaderTab,
-    // QuickMenu
     // BackTop,
-  },
-   data () {
-    return {
-    //   count:4,
-    //   icons:["fa fa-github","fa fa-comment","fa fa-code","fa fa-envelope"],
-    //   list:[
-    //       "https://github.com/AshleyLv/vue-quick-menu",
-    //       "https://www.npmjs.com/package/vue-quick-menu","http://www.wheelsfactory.cn/","http://www.wheelsfactory.cn/"],
-    //   backgroundColor:'#0f88eb',
-    //   color:'#ffffff',
-    //   // position:'top-left',
-    //   position:'bottom-right',
-    //   isOpenNewTab:false
-      
-    }
-  },
-   computed:{
-    // getCount(){
-    //   return Number(this.count)
-    // },
-    // getIsOpenNewTab(){
-    //   return Boolean(this.isOpenNewTab)
-    // }
   }
 }
 </script>

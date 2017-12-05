@@ -16,8 +16,10 @@ Vue.config.productionTip = false
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import VueLazyload from 'vue-lazyload'
+// import VueLazyload from 'vue-lazyload'
 
+// import quickMenu from 'vue-quick-menu'
+// Vue.component(quickMenu.name,quickMenu)
 
 import VueTimeago from 'vue-timeago'
 
@@ -60,7 +62,7 @@ Vue.use(VueTimeago, {
 })
 
 Vue.use(VueAxios, axios)
-Vue.use(VueLazyload)
+// Vue.use(VueLazyload)
 
 
 
@@ -105,17 +107,17 @@ Vue.component(VmBackTop.name, VmBackTop)
         //       })
         // }, 200);
 
-        var __to = localStorage.getItem("__to")||''
-        // to 和 from 都是 路由信息对象
+        // var __to = localStorage.getItem("__to")||''
+        // // to 和 from 都是 路由信息对象
         
-        // console.log(to.path ,from.path , __to ,to.path )
-        if(to.path != from.path && __to !=to.path ){
-          localStorage.removeItem("articles")
-          localStorage.removeItem("rank")
-        //   console.log("clear cache")
-        }
+        // // console.log(to.path ,from.path , __to ,to.path )
+        // if(to.path != from.path && __to !=to.path ){
+        //   localStorage.removeItem("articles")
+        //   localStorage.removeItem("rank")
+        // //   console.log("clear cache")
+        // }
         
-        localStorage.setItem("__to",to.path)
+        // localStorage.setItem("__to",to.path)
         // console.log(to.path, from.path)
         next()
       })
