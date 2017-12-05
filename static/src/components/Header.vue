@@ -54,22 +54,29 @@
 .nav-grids .weui-grid{
   width:16.66%;
   border: none;
-  padding: 10px 10px;
+  padding: 10px 0px;
 }
 .nav-grids .weui-grid:before{
   
   border: none;
 }
+.nav-grids{
+  padding: 0 1em;
+}
+
 .nav-grids:before{
   border: none;
 }
-
 .nav-grids .weui-grid:after {
    border: none;
+}
+.nav-grids .router-link-active{
+  background-color: #ececec;
 }
 .router-link-active .weui-grid__label{
     font-weight: bold;  
     color: #00a06a;
+    
 }
 </style>
 
