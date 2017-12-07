@@ -37,7 +37,9 @@
           </router-link>
         <template v-if="hideCategory.length>0">
           <div class="weui-grid" v-on:click="showHideCategoryStatus = !showHideCategoryStatus" >
-             <p class="weui-grid__label">{{showHideCategoryStatus?'收起':'更多'}}</p>
+             <p class="weui-grid__label">
+               {{showHideCategoryStatus?'<<':'>>'}}
+               </p>
           </div>
         </template>
         <template v-if="showHideCategoryStatus">
@@ -63,13 +65,15 @@
 .nav-grids:before{
   border: none;
 }
-
+.weui-grid:active {
+    background-color: #ffffff;
+}
 .nav-grids .weui-grid:after {
    border: none;
 }
 .router-link-active .weui-grid__label{
     font-weight: bold;  
-    color: #00a06a;
+    color: #0f88eb;
 }
 </style>
 
@@ -107,16 +111,26 @@ import api from '../api';
       }
     },
     methods: {
-        GetCate(){
-          var site = this
+      GetCate(){
+        var site = this
+
+
+        var timestamp = (new Date()).valueOf();
+        var cate = this.cate
+        var time = parseInt(window.localStorage.getItem("cate_cache_time")) || 0
+        if (time>timestamp){
+          site.category  = JSON.parse(window.localStorage.getItem("all_category"))||[]
+          site.showHideCategoryStatus  = parseInt(window.localStorage.getItem("hide_category_status"))||[]
+        }else{
           api.get("/tags?type=cate",function(err,data){
+            localStorage.setItem("all_category",JSON.stringify(data))
+            localStorage.setItem("cate_cache_time",timestamp+1800000) //1800000
             site.category = data
-            site.manageCategory()
-            console.log(data)
-            console.log(site.$route.name)
-            console.log(site.$route.params.id)
           })
-        },
+        }
+        site.manageCategory()
+      },
+
       back () {
         this.$router.push(this.backTo)
       },
@@ -133,10 +147,14 @@ import api from '../api';
             this.hideCategory.push(category[i])
           }
         }
-        console.log('data', category,this.showCategory, this.hideCategory)
+        // console.log('data', category,this.showCategory, this.hideCategory)
       }
     },
-        
+    watch:{
+      showHideCategoryStatus:function(){
+        localStorage.setItem("hide_category_status",this.showHideCategoryStatus)
+      }
+    },
     mounted() {
         this.GetCate()
     },
