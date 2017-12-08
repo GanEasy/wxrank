@@ -113,22 +113,24 @@ import api from '../api';
     methods: {
       GetCate(){
         var site = this
-
-
         var timestamp = (new Date()).valueOf();
         var cate = this.cate
         var time = parseInt(window.localStorage.getItem("cate_cache_time")) || 0
         if (time>timestamp){
           site.category  = JSON.parse(window.localStorage.getItem("all_category"))||[]
-          site.showHideCategoryStatus  = parseInt(window.localStorage.getItem("hide_category_status"))||[]
+          // console.log(window.localStorage.getItem("hide_category_status"))
+          if(window.localStorage.getItem("hide_category_status")==='true'){ //布尔不为空的字符串都是 true
+              site.showHideCategoryStatus  = true
+          }
+          site.manageCategory()
         }else{
           api.get("/tags?type=cate",function(err,data){
             localStorage.setItem("all_category",JSON.stringify(data))
             localStorage.setItem("cate_cache_time",timestamp+1800000) //1800000
             site.category = data
+            site.manageCategory()
           })
         }
-        site.manageCategory()
       },
 
       back () {
@@ -152,6 +154,7 @@ import api from '../api';
     },
     watch:{
       showHideCategoryStatus:function(){
+        // console.log(this.showHideCategoryStatus)
         localStorage.setItem("hide_category_status",this.showHideCategoryStatus)
       }
     },
