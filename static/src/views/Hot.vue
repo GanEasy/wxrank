@@ -17,7 +17,7 @@
 
     </label>
   </div> -->
-<Search></Search>
+<Search :recommend="recommend"></Search>
   
   <ArticleList :articles="articles"></ArticleList>
 
@@ -100,6 +100,7 @@ export default {
         loading:false,
         cate: 0,
         err:'',
+        recommend:false
 
       }
     },

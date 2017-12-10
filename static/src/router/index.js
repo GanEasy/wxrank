@@ -10,7 +10,7 @@ import CatePage from '@/views/Cate' // 进入某个分类
 // import aboutPage from '@/views/about'
 // import guidePage from '@/views/guide'
 // import postPage from '@/views/Post'
-import TagPage from '@/views/Tag' // 展示所有标签
+// import TagPage from '@/views/Tag' // 展示所有标签
 
 // // 反馈模块
 // import fbArticlePage from '@/pages/feedback/Article'
@@ -71,11 +71,11 @@ export default new Router({
         //     path:'/post',
         //     component:postPage
         // },
-        {
-            path:'/tags', 
-            name: 'tags',
-            component:TagPage
-        },
+        // {
+        //     path:'/tags', 
+        //     name: 'tags',
+        //     component:TagPage
+        // },
         // {
         //     path:'/p/:id',
         //     name: 'media',
