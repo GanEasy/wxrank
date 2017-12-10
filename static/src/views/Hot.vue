@@ -17,7 +17,7 @@
 
     </label>
   </div> -->
-
+<Search></Search>
   
   <ArticleList :articles="articles"></ArticleList>
 
@@ -75,7 +75,8 @@
 </style>
 <script>
 
-import ArticleList from '@/components/ArticleList';
+import ArticleList from '@/components/ArticleList'
+import Search from '@/components/Search';
 import InfiniteLoading from 'vue-infinite-loading'
 import api from '../api';
 
@@ -85,6 +86,7 @@ export default {
   
   
     components: {
+      Search,
       InfiniteLoading,
       ArticleList
     },
