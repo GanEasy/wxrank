@@ -22,6 +22,10 @@ export default {
         type: Boolean,
         default: true
       }, 
+      recommendType: {
+        type: String,
+        default: 'wxid'
+      }, 
     },
 
     components: {
@@ -58,9 +62,11 @@ export default {
         var site = this
         if(this.recommend){
           if (val!=''){
-            api.get("/searchtags?s="+val,function(err,data){
-              site.defaultResult = data
-            })
+            if(this.recommendType=='wxid'){
+              api.get("/searchtags?s="+val+"&limit=5",function(err,data){
+                site.defaultResult = data
+              })
+            }
           }else{
             site.defaultResult = []
           }

@@ -8,7 +8,7 @@ import CatePage from '@/views/Cate' // 进入某个分类
 // import mediaPage from '@/views/Media'
 // import newPage from '@/views/New'
 // import aboutPage from '@/views/about'
-// import guidePage from '@/views/guide'
+import guidePage from '@/views/guide'
 // import postPage from '@/views/Post'
 // import TagPage from '@/views/Tag' // 展示所有标签
 
@@ -86,11 +86,11 @@ export default new Router({
         //     name: 'about',
         //     component:aboutPage
         // },
-        // {
-        //     path:'/guide', 
-        //     name: 'guide',
-        //     component:guidePage
-        // },
+        {
+            path:'/guide', 
+            name: 'guide',
+            component:guidePage
+        },
         // {
         //     path:'/feedback/article', 
         //     name: 'feedbackarticle',

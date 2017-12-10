@@ -2,6 +2,7 @@
 <div>
 
 
+    <Search :recommend="recommend" placeholder="找不到公众号?"></Search>
 
     <div class="weui-cells__title">自助服务</div>
 
@@ -97,31 +98,29 @@
 
 <script>
 import api from '../api';
-
+import Search from '@/components/Search';
   export default {
     name: 'app',
     data(){
         return{
-           url:""
+            url:"",
+            recommend:true
         }
     },
     methods: {
        submit: function(event) {
-            
-              api.post(this.url,function(err,data){
-                if(data == "0"){
-                  alert("收录失败")
-                }else{
-                  alert("收录成功")
-                }
-              });
-
-           
+            api.post(this.url,function(err,data){
+            if(data == "0"){
+                alert("收录失败")
+            }else{
+                alert("收录成功")
+            }
+            });
         }
         
     },
     components: {
-      
+      Search
     }
   }
 </script>
