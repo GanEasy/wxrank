@@ -10,7 +10,7 @@
     </div> -->
 
         
-        <div class="weui-cells__title">个性化定制{{tags}}</div>
+        <!-- <div class="weui-cells__title">个性化定制{{tags}}</div>
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label"  v-for="cate in category" :key="cate.ID">
                 <div class="weui-cell__hd">
@@ -21,10 +21,10 @@
                     <p>{{cate.Title}}</p>
                 </div>
             </label>
-        </div>
+        </div> -->
 
-        <weui-search v-model="value" :result="filterResult" @result-click="resultClick"></weui-search>
-
+        <weui-search v-model="value" :result="defaultResult" @result-click="resultClick" @on-submit="onSubmit"></weui-search>
+<!-- 
         <div class="weui-cells__title">分类列表</div> 
 
 
@@ -45,7 +45,7 @@
 
           </router-link>
 
-        </div>
+        </div> -->
 </div>
 
 
@@ -86,22 +86,7 @@ export default {
         category: [],
         value: '',
         defaultResult: [
-          'Apple',
-          'Banana',
-          'Orange',
-          'Durian',
-          'Lemon',
-          'Peach',
-          'Cherry',
-          'Berry',
-          'Core',
-          'Fig',
-          'Haw',
-          'Melon',
-          'Plum',
-          'Pear',
-          'Peanut',
-          'Other'
+          
         ]
       }
     },
@@ -113,20 +98,47 @@ export default {
       // alert(1)
     },
     methods: {
+      onSubmit () {
+        console.log(this.value)
+      },
       resultClick (item) {
+        console.log(item)
         window.alert('you click the result item: ' + JSON.stringify(item))
       },
-        GetCate:function(){
-          var site = this
-          api.get("/tags?type=cate",function(err,data){
-            site.category = data
-          })
-        },
+      GetCate:function(){
+        var site = this
+        api.get("/tags?type=cate",function(err,data){
+          site.category = data
+        })
+      },
     },
     computed: {
       filterResult () {
-        console.log(this.value)
-        return this.defaultResult.filter(value => new RegExp(this.value, 'i').test(value))
+        // console.log(this.value)
+        // var _data
+        // api.get("/searchtags?s="+this.value,function(err,data){
+        //   _data = data
+        // })
+        
+        // setTimeout(function(){
+          
+        // console.log('_data',_data)
+        //   return _data
+        // }, 200);
+
+        // return this.defaultResult
+      }
+    },
+    watch:{
+      value:function(val){
+        var site = this
+        if (val!=''){
+          api.get("/searchtags?s="+val,function(err,data){
+            site.defaultResult = data
+          })
+        }else{
+          site.defaultResult = []
+        }
       }
     }
 

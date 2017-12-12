@@ -8,6 +8,7 @@ func main() {
 	e.File("logo.png", "images/80x80logo.png")
 	e.File("/", "static/dist/index.html")
 	e.File("/t/:id", "static/dist/index.html")
+	e.File("/search", "static/dist/index.html")
 	e.File("/tags", "static/dist/index.html")
 	e.File("/hot", "static/dist/index.html")
 	e.File("/new", "static/dist/index.html")

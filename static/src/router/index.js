@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import homePage from '@/views/Home'
 import hotPage from '@/views/Hot'
+import searchPage from '@/views/Search'
 import CatePage from '@/views/Cate' // 进入某个分类
 // import HelloWorld from '@/components/HelloWorld'
 // import mediaPage from '@/views/Media'
 // import newPage from '@/views/New'
 // import aboutPage from '@/views/about'
-// import guidePage from '@/views/guide'
+import guidePage from '@/views/guide'
 // import postPage from '@/views/Post'
 // import TagPage from '@/views/Tag' // 展示所有标签
 
@@ -50,7 +51,13 @@ export default new Router({
             path:'/t/:id', 
             name: 'cate',
             component:hotPage
-        },      
+        },
+        { 
+            path: '/search',
+            name: 'search',
+            component: searchPage,
+            props: (route) => ({ query: route.query.q }) 
+        },
         // {
         //     path:'/swiper',
         //     name: 'swiper',
@@ -79,11 +86,11 @@ export default new Router({
         //     name: 'about',
         //     component:aboutPage
         // },
-        // {
-        //     path:'/guide', 
-        //     name: 'guide',
-        //     component:guidePage
-        // },
+        {
+            path:'/guide', 
+            name: 'guide',
+            component:guidePage
+        },
         // {
         //     path:'/feedback/article', 
         //     name: 'feedbackarticle',
