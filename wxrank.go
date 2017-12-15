@@ -85,6 +85,13 @@ func main() {
 	// 临时做小程序api
 	e.GET("/minapp/getlist", GetList)
 	e.GET("/minapp/getcontent", GetContent)
+
+	// js 验证
+
+	e.GET("/MP_verify_q4wWNqE4xUaPr81X.txt", func(c echo.Context) error {
+		return c.String(http.StatusOK, "q4wWNqE4xUaPr81X")
+	})
+	// MP_verify_q4wWNqE4xUaPr81X.txt
 	e.Logger.Fatal(e.Start(":8006"))
 	// e.Logger.Fatal(e.StartAutoTLS(":443"))
 
