@@ -16,3 +16,5 @@
 
 .vscode/
 /file/*
+
+conf.toml

@@ -6,11 +6,31 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/BurntSushi/toml"
 	"github.com/labstack/echo"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"github.com/yizenghui/reader"
 )
+
+type tomlConfig struct {
+	ReaderMinApp ReaderMinApp
+}
+
+//ReaderMinApp 配置
+type ReaderMinApp struct {
+	AppID     string `toml:"app_id"`
+	AppSecret string `toml:"app_secret"`
+}
+
+func init() {
+	var config tomlConfig
+	if _, err := toml.DecodeFile("conf.toml", &config); err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(config)
+}
 
 //GetOpenID get 报料接口
 func GetOpenID(c echo.Context) error {
