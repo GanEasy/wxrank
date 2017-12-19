@@ -186,6 +186,10 @@ func main() {
 	e.GET("/MP_verify_q4wWNqE4xUaPr81X.txt", func(c echo.Context) error {
 		return c.String(http.StatusOK, "q4wWNqE4xUaPr81X")
 	})
+
+	e.GET("/root.txt", func(c echo.Context) error {
+		return c.String(http.StatusOK, "022232bdd400caf29e739cbf5e5f2c50")
+	})
 	// MP_verify_q4wWNqE4xUaPr81X.txt
 	e.Logger.Fatal(e.Start(":8006"))
 	// e.Logger.Fatal(e.StartAutoTLS(":443"))
