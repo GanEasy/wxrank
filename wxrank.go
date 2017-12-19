@@ -183,12 +183,14 @@ func main() {
 
 	// js 验证
 
+	// MP_verify_q4wWNqE4xUaPr81X.txt
 	e.GET("/MP_verify_q4wWNqE4xUaPr81X.txt", func(c echo.Context) error {
 		return c.String(http.StatusOK, "q4wWNqE4xUaPr81X")
 	})
 
-	e.File("/root.txt", "root (3).txt")
-	// MP_verify_q4wWNqE4xUaPr81X.txt
+	e.GET("/root.txt", func(c echo.Context) error {
+		return c.String(http.StatusOK, "88ee40b93ee9caf829ac82e1ebb59a6b")
+	})
 	e.Logger.Fatal(e.Start(":8006"))
 	// e.Logger.Fatal(e.StartAutoTLS(":443"))
 
