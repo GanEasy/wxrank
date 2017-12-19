@@ -187,7 +187,7 @@ func main() {
 		return c.String(http.StatusOK, "q4wWNqE4xUaPr81X")
 	})
 
-	e.File("/root.txt", "root.txt")
+	e.File("/root.txt", "root (3).txt")
 	// MP_verify_q4wWNqE4xUaPr81X.txt
 	e.Logger.Fatal(e.Start(":8006"))
 	// e.Logger.Fatal(e.StartAutoTLS(":443"))
