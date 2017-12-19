@@ -1,15 +1,20 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
+	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/BurntSushi/toml"
 	"github.com/labstack/echo"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
+	wxbizdatacrypt "github.com/yilee/wx-biz-data-crypt"
 	"github.com/yizenghui/reader"
 )
 
@@ -23,8 +28,15 @@ type ReaderMinApp struct {
 	AppSecret string `toml:"app_secret"`
 }
 
+var config tomlConfig
+
+//DefaultHttpClient 默认http.Client
+var DefaultHttpClient *http.Client
+
 func init() {
-	var config tomlConfig
+	client := *http.DefaultClient
+	client.Timeout = time.Second * 5
+	DefaultHttpClient = &client
 	if _, err := toml.DecodeFile("conf.toml", &config); err != nil {
 		fmt.Println(err)
 		return
@@ -32,11 +44,32 @@ func init() {
 	fmt.Println(config)
 }
 
-//GetOpenID get 报料接口
+//GetOpenID 获取微信小程序上报的openid 此ID暂不加密处理
 func GetOpenID(c echo.Context) error {
-	// url := c.QueryParam("url")
+	code := c.QueryParam("code")
+	//
+	type Ret struct {
+		ErrCode    int64  `json:"errcode"`
+		ErrMSG     string `json:"errmsg"`
+		SessionKey string `json:"session_key"`
+		ExpiresIn  int64  `json:"expires_in"`
+		OpenID     string `json:"openid"`
+	}
+	var ret Ret
 
-	return c.JSON(http.StatusOK, "0")
+	url := fmt.Sprintf(`https://api.weixin.qq.com/sns/jscode2session?appid=%v&secret=%v&js_code=%v&grant_type=authorization_code`,
+		config.ReaderMinApp.AppID,
+		config.ReaderMinApp.AppSecret,
+		code,
+	)
+	// fmt.Println(url)
+	httpGetJSON(url, &ret)
+
+	type RetData struct {
+		ErrCode int64  `json:"errcode"`
+		OpenID  string `json:"openid"`
+	}
+	return c.JSON(http.StatusOK, RetData{ret.ErrCode, ret.OpenID})
 }
 
 //GetContent 获取正文
@@ -86,6 +119,48 @@ func GetList(c echo.Context) error {
 	links, _ := reader.GetList(urlStr)
 	return c.JSON(http.StatusOK, links)
 }
+
+// Crypt 解密数据
+func Crypt(c echo.Context) error {
+	appID := config.ReaderMinApp.AppID
+	sessionKey := c.QueryParam("sk")
+	encryptedData := c.QueryParam("ed")
+	iv := c.QueryParam("iv")
+	pc := wxbizdatacrypt.NewWXBizDataCrypt(appID, sessionKey)
+	userInfo, _ := pc.Decrypt(encryptedData, iv)
+	return c.JSON(http.StatusOK, userInfo)
+}
+
+func httpGetJSON(url string, response interface{}) error {
+	httpResp, err := DefaultHttpClient.Get(url)
+	if err != nil {
+		return err
+	}
+	defer httpResp.Body.Close()
+
+	if httpResp.StatusCode != http.StatusOK {
+		return fmt.Errorf("http.Status: %s", httpResp.Status)
+	}
+	return DecodeJSONHttpResponse(httpResp.Body, response)
+}
+
+//DecodeJSONHttpResponse 解决json
+func DecodeJSONHttpResponse(r io.Reader, v interface{}) error {
+	body, err := ioutil.ReadAll(r)
+	if err != nil {
+		return err
+	}
+	// body2 := body
+	// fmt.Println(body)
+	// buf := bytes.NewBuffer(make([]byte, 0, len(body2)+1024))
+	// if err := json.Indent(buf, body2, "", "    "); err == nil {
+	// 	body2 = buf.Bytes()
+	// }
+	// log.Printf("[WECHAT_DEBUG] [API] http response body:\n%s\n", body2)
+
+	return json.Unmarshal(body, v)
+}
+
 func main() {
 	e := echo.New()
 	e.File("favicon.ico", "images/favicon.ico")
@@ -101,7 +176,7 @@ func main() {
 	e.File("/sign", "static/dist/index.html")
 	e.Static("static", "static/dist/static")
 	e.GET("/getopenid", GetOpenID)
-
+	e.GET("/crypt", Crypt)
 	// 临时做小程序api
 	e.GET("/minapp/getlist", GetList)
 	e.GET("/minapp/getcontent", GetContent)
