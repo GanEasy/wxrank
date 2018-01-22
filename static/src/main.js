@@ -16,7 +16,7 @@ Vue.config.productionTip = false
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-// import VueLazyload from 'vue-lazyload'
+import VueLazyload from 'vue-lazyload'
 
 // import quickMenu from 'vue-quick-menu'
 // Vue.component(quickMenu.name,quickMenu)
@@ -62,7 +62,7 @@ Vue.use(VueTimeago, {
 })
 
 Vue.use(VueAxios, axios)
-// Vue.use(VueLazyload)
+Vue.use(VueLazyload)
 
 
 
