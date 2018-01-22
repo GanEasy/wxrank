@@ -8,8 +8,8 @@
       <div  v-for="article in articles" :key="article.id" class="weui-media-box weui-media-box_appmsg" >
 
           <div class="weui-media-box__hd" style="width:80px">
-            <!-- <a :href="article.URL"><img class="weui-media-box__thumb"   v-lazy="article.Cover" ></a> -->
-            <a :href="article.URL"><img class="weui-media-box__thumb"   :src="article.Cover" ></a>
+            <a :href="article.URL"><img class="weui-media-box__thumb"   v-lazy="article.Cover" ></a>
+            <!-- <a :href="article.URL"><img class="weui-media-box__thumb"   :src="article.Cover" ></a> -->
           </div>  
           <div style="width:30px">
             <ul class="weui-media-box__info article-tags">
