@@ -95,6 +95,10 @@ Vue.component(VmBackTop.name, VmBackTop)
 
       router.afterEach((to, from) => {
         // ...
+		  if (window.ga) {
+			window.ga('set', 'page', to.fullPath);
+			window.ga('send', 'pageview');
+		  }
         setTimeout(function(){
             api.get("/jssdk?url=http://readfollow.com"+to.path,function(err,data){
                 wx.config({
